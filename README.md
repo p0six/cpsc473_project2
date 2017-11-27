@@ -1,51 +1,65 @@
-# imgrepo
+# imgrepo - An image repository built on EmberJS.
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+* `ember new imgrepo && cd imgrepo`
 
-## Prerequisites
+## Build Steps..
+#### Create our 'bower.json' file which all bower installations will write to
+* `bower init` - hit enter a bunch of times.
 
-You will need the following things properly installed on your computer.
+#### This gets us into business with Bootstrap
+* `bower install bootstrap-sass --save`
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with NPM)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+#### This automates converting SCSS stylesheets to CSS during EmberCLI build process
+* `ember install ember-cli-sass`
+##### Look at page 374-377 for info / configuration requirements..
 
-## Installation
+#### FontAwesome gives us a really nice pack of icons to work from:
+* `ember install ember-font-awesome`
+##### If you get an error "Cannot find module '@glimmer/syntax'", it's due to a bug in font awesome..
+* `npm install @glimmer/syntax` to correct.
+#### Another change made to `ember-cli-build.js` to correct an error with duplicate fonts..
 
-* `git clone <repository-url>` this repository
-* `cd imgrepo`
-* `npm install`
+#### Can now render icon's via "{{fa-icon "[icon name]"}}", for a list of icons, click [here](http://fontawesome.io/icons/)
 
-## Running / Development
+#### Moment-from makes it nice to render date strings..
+* `bower install moment --save`
+##### Change made to `ember-cli-build.js` to import moment.
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+#### emberx-select@2.2.3 - maintains state in application without corresponding onChange() required.
+* `ember install emberx-select@2.2.3`
+##### Error will occur stating "Cannot read property 'indexOf' of undefined", fix that with:
+* `bower install ember --save` - emberx-select seems to look for ember in bower_components, and this populates it.
 
-### Code Generators
+#### Emberfire - Our Adapter to Firebase
+* `ember install emberfire`
 
-Make use of the many generators for code, try `ember help generate` for more details
+#### Routes:
+```
+ember g route index
+ember g route user
+ember g route user/index
+ember g route user/edit
+ember g route post
+ember g route post/index
+ember g route post/edit
+ember g route posts
+ember g route posts/new
+ember g route users
+ember g route users/new
+ember g route comments
+ember g route comment
+ember g route comment/index
+ember g route comment/edit
+```
 
-### Running Tests
+#### Models:
+```
+ember g model post
+ember g model user
+ember g model comment
+```
 
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+#### Controllers:
+```
+ember g controller users/new
+```

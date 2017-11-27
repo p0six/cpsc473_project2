@@ -1,0 +1,22 @@
+{
+  "name": "imgrepo",
+  "description": "Small description for imgrepo goes here",
+  "main": "",
+  "authors": [
+    "Michael Romero <romerom@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "moment": "^2.19.2",
+    "ember": "^2.16.2"
+  }
+}

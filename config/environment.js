@@ -1,39 +1,43 @@
-/* eslint-env node */
-'use strict';
+/* jshint node: true */
 
 module.exports = function(environment) {
-  let ENV = {
+  var ENV = {
     modulePrefix: 'imgrepo',
-    environment,
-    rootURL: '/',
+    environment: environment,
+    baseURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
-      },
-      EXTEND_PROTOTYPES: {
-        // Prevent Ember Data from overriding Date.parse.
-        Date: false
       }
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    firebase: {
+      apiKey: 'AIzaSyBzl9X8n19ZA-zOvmcj4v4lh5vnGxNV3bo',
+      authDomain: 'imghost-17e95.firebaseapp.com',
+      databaseURL: 'https://imghost-17e95.firebaseio.com',
+      storageBucket: 'imghost-17e95.appspot.com',
+      projectId: 'imghost-17e95',
+      messagingSenderId: '650067384567'
     }
   };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.APP.LOG_ACTIVE_GENERATION = true;
+    ENV.APP.LOG_TRANSITIONS = true;
+    ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
   if (environment === 'test') {
     // Testem prefers this...
+    ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
@@ -44,7 +48,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+
   }
 
   return ENV;
