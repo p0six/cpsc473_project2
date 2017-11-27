@@ -1,0 +1,8 @@
+<section>
+<h2>List of Users:</h2>
+{{#each model as |user|}}
+<div>
+  <div>{{user.username}} - {{user.email}}</div>
+</div>
+{{/each}}
+</section>

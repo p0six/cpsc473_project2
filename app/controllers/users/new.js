@@ -22,7 +22,7 @@ export default Controller.extend({
       });
       var self = this;
       newUser.save().then(function() {
-        self.transitionToRoute('index');
+        self.transitionToRoute('users');
       });
     },
     cancel() {
