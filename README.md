@@ -33,8 +33,18 @@
 #### Emberfire - Our Adapter to Firebase
 * `ember install emberfire`
 
+#### Firebase user authentication instructions [here](https://github.com/firebase/emberfire/blob/master/docs/guide/authentication.md)
+* `ember install torii`
+#### More docs [here](https://github.com/firebase/emberfire/blob/master/docs/migration/1XX-to-2XX.md)
+
+#### Potential modal options:
+https://github.com/yapplabs/ember-modal-dialog
+* `ember install ember-modal-dialog`
+
+
 #### Routes:
 ```
+ember g route application
 ember g route index
 ember g route user
 ember g route user/index
@@ -62,4 +72,5 @@ ember g model comment
 #### Controllers:
 ```
 ember g controller users/new
+ember g controller application
 ```

@@ -24,6 +24,9 @@ module.exports = function(environment) {
       storageBucket: 'imghost-17e95.appspot.com',
       projectId: 'imghost-17e95',
       messagingSenderId: '650067384567'
+    },
+    torii: {
+      sessionServiceName: 'session'
     }
   };
 
