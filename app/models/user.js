@@ -2,7 +2,6 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   email: DS.attr('string'),
-  password: DS.attr('string'), // we never actually save this... just for form manipulation
   username: DS.attr('string'), // how can we ensure this is unique?
   firstName: DS.attr('string'),
   lastName: DS.attr('string'),

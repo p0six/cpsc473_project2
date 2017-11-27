@@ -23,11 +23,11 @@
           </li>
         </ul>
         {{#if session.isAuthenticated}}
-          Logged in as {{session.currentUser.displayName}}
-          <button {{action "signOut"}}>Sign out</button>
+          Logged in as {{session.currentUser.email}}
+          <button {{action "logoutUser"}}>Sign out</button>
         {{else}}
-          <button {{action "signIn" "password"}}>Sign in</button>
-          <button {{action "register"}}>Register</button>
+          <button {{action "showLoginModal" "Login"}}>Login</button>
+          <button {{action "showRegisterModal" "Registration"}}>Register</button>
         {{/if}}
       </div> <!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
@@ -35,11 +35,51 @@
 </header>
 <div class="container">
   <button {{action "showModalDialog" "HAAIIIII BYOCH"}}>Toggle Modal</button> <!-- onClose="toggleModal"-->
-  {{#if isShowingModal}}
   <!-- need to setup conditionals to display a different modal based on the modal called -->
-  {{#modal-dialog translucentOverlay=true close='closeModalDialog'}}
-    <h2>{{modalMessage}}</h2>
-  {{/modal-dialog}}
+  <!-- https://www.npmjs.com/package/ember-dialog -->
+  <!-- https://github.com/dbbk/ember-routable-modal  -->
+  <!-- https://gist.github.com/izelnakri/b18e3c490116404a65b9b87972483f18 -->
+  {{#if isShowingModal}}
+    {{#modal-dialog translucentOverlay=true close='closeModalDialog'}}
+      <h2>{{modalMessage}}</h2>
+    {{/modal-dialog}}
+  {{/if}}
+  {{#if isShowingLoginModal}}
+    {{#modal-dialog translucentOverlay=true close='closeLoginModal'}}
+      <h1>{{modalMessage}}</h1>
+      <form {{action "loginUser" on="submit"}}>
+        <div class="form-group">
+          <label for="email">email:</label> {{input value=formEmail
+            type="text" class="form-control" name="email" required=true}}
+          <label for="password">Password:</label> {{input value=formPassword
+            type="text" class="form-control" name="password" required=true}}
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </div>
+      </form>
+    {{/modal-dialog}}
+  {{/if}}
+  {{#if isShowingRegisterModal}}
+    {{#modal-dialog translucentOverlay=true close='closeRegisterModal'}}
+      <h1>{{modalMessage}}</h1>
+      <form {{action "createUser" model.user.email on="submit"}}>
+        <div class="form-group">
+          <label for="username">Username:</label> {{input value=model.user.username
+            type="text" class="form-control" name="username" required=true}}
+          <label for="email">email:</label> {{input value=model.user.email
+            type="text" class="form-control" name="email" required=true}}
+          <label for="password">Password:</label> {{input value=formPassword
+            type="text" class="form-control" name="password" required=true}}
+          <label for="firstName">First Name:</label> {{input value=model.user.firstName
+            type="text" class="form-control" name="firstName" required=true}}
+          <label for="lastName">Last Name:</label> {{input value=model.user.lastName
+            type="text" class="form-control" name="lastName" required=true}}
+          <label for="bio">Bio - Tell us about yourself:</label> {{input value=model.user.bio
+            type="text" class="form-control" name="bio" required=true}}
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create</button>
+        <button {{action 'cancelCreateUser'}} class="btn btn-link btn-block">Cancel</button>
+      </form>
+    {{/modal-dialog}}
   {{/if}}
   {{outlet}}
 </div>

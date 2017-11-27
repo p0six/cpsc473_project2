@@ -6,22 +6,17 @@ export default Route.extend({
   beforeModel() {
     return this.get('session').fetch().catch(function() {});
   },
-  actions: { // TODO: clean this up....kk
-    signIn(provider) { // can feed in email / pass right here..
-      this.get('session').open('firebase', {
-        provider: provider,
-        email: 'romerom@gmail.com',
-        // if we can feed it in via a modal here... we can do the same with register.
-        // https://www.npmjs.com/package/ember-modal - shows a form modal...
-        password: 'password'
-      });//.then(function(data) {
-        //console.log(data.currentUser);
-      //});
-    },
-    signOut() {
-      this.get('session').close();
+  model() {
+    // TODO: think about the following:
+    // when building a single page application, how do we have a valid 'model'
+    // capable of displaying all the data we're looking for??
+    return Ember.RSVP.hash({
+      user: this.store.createRecord('user')
+    });
+  },
+  actions: {
+    refreshModel() { // took a while to figure this one out :D
+      this.refresh();
     }
-    // could have used this.controllerFor('application').set('modalMessage', true)
-    // probably better to keep it in a controller tho? :D
   }
 });
