@@ -34,5 +34,12 @@
   </nav>
 </header>
 <div class="container">
+  <button {{action "showModalDialog" "HAAIIIII BYOCH"}}>Toggle Modal</button> <!-- onClose="toggleModal"-->
+  {{#if isShowingModal}}
+  <!-- need to setup conditionals to display a different modal based on the modal called -->
+  {{#modal-dialog translucentOverlay=true close='closeModalDialog'}}
+    <h2>{{modalMessage}}</h2>
+  {{/modal-dialog}}
+  {{/if}}
   {{outlet}}
 </div>

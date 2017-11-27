@@ -21,6 +21,7 @@ export default Controller.extend({
         });
         var self = this;
         return user.save().then(function() {
+          // TODO: look into saving the session without having to make a second call to authenticate
           self.get('session').open('firebase', {
             provider: 'password',
             email: email,
