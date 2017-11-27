@@ -22,6 +22,13 @@
             <a href="#">Test Link</a>
           </li>
         </ul>
+        {{#if session.isAuthenticated}}
+          Logged in as {{session.currentUser.displayName}}
+          <button {{action "signOut"}}>Sign out</button>
+        {{else}}
+          <button {{action "signIn" "password"}}>Sign in</button>
+          <button {{action "register"}}>Register</button>
+        {{/if}}
       </div> <!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
   </nav>

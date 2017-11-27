@@ -12,12 +12,14 @@
 https://github.com/firebase/emberfire/issues/390
 -->
 <h1>New User</h1>
-<form {{action "create" on="submit"}}>
+<form {{action "create" model.user.email model.user.password on="submit"}}>
   <div class="form-group">
     <label for="username">Username:</label> {{input value=model.user.username
       type="text" class="form-control" name="username" required=true}}
     <label for="email">email:</label> {{input value=model.user.email
       type="text" class="form-control" name="email" required=true}}
+    <label for="password">Password:</label> {{input value=model.user.password
+      type="text" class="form-control" name="password" required=true}}
     <label for="firstName">First Name:</label> {{input value=model.user.firstName
       type="text" class="form-control" name="firstName" required=true}}
     <label for="lastName">Last Name:</label> {{input value=model.user.lastName
