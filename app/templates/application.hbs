@@ -92,6 +92,28 @@
       only registered users can post.  posts need to be associated with the user
       need to figure out how to stuff the user data into the post and vice versa
      -->
+      {{x-file-input name="files"
+        multiple=true
+        action="didSelectFiles"
+        alt="Choose a File"
+        class="btn btn-success-outline btn-block" }}
+      {{#if progress}}
+        <!--<div style="margin-top:50px;">-->
+        <div>
+          <progress class="progress progress-success" value={{progress}} max="100"></progress>
+        </div>
+      {{/if}}
+      {{#if status}}
+        <!--<p class="text-primary">{{progressText}}</p>-->
+        <p>{{progressText}}</p>
+      {{/if}}
+      {{#if downloadURL}}
+        <!--<div class="text-center">-->
+        <div>
+          <!--<img src="{{downloadURL}}" alt="" class="img-responsive img-rounded">-->
+          <img src="{{downloadURL}}" alt=""/>
+        </div>
+      {{/if}}
     {{/modal-dialog}}
   {{/if}}
   {{outlet}}

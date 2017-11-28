@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 
-// https://github.com/firebase/emberfire/issues/490
+// firebase import thanks to: https://github.com/firebase/emberfire/issues/490
 import firebase from 'firebase';
 window.firebase = firebase;
 
@@ -8,13 +8,11 @@ export default Controller.extend({
   progress: 0,
   actions: {
     didSelectFiles(data) {
-      //console.log(data);
       const storageRef = window.firebase.storage().ref();
       let file = data;
       var uploadTask = storageRef.child('images/' + file[0].name).put(file[0]);
       uploadTask.on(window.firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        //console.log('Upload is ' + progress + '% done');
         this.set('progressText', `Upload is ${Math.round(progress * 100) / 100} % done`);
         this.set('progress', progress);
         switch (snapshot.state) {
@@ -27,14 +25,6 @@ export default Controller.extend({
         }
       }, (error) => {
         alert(error.message);
-        /*switch (error.code) {
-          case 'storage/unauthorized':
-            break;
-          case 'storage/canceled':
-            break;
-          case 'storage/unknown':
-            break;
-        }*/
       }, () => {
         this.set('downloadURL', uploadTask.snapshot.downloadURL);
       });
