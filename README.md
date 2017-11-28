@@ -32,6 +32,7 @@
 
 #### Emberfire - Our Adapter to Firebase
 * `ember install emberfire`
+#### Useful guide [here](https://www.firebase.com/docs/web/libraries/ember/guide.html)
 
 #### Firebase user authentication instructions [here](https://github.com/firebase/emberfire/blob/master/docs/guide/authentication.md)
 * `ember install torii`
@@ -40,6 +41,12 @@
 #### Potential modal options:
 https://github.com/yapplabs/ember-modal-dialog
 * `ember install ember-modal-dialog`
+
+#### File uploads?
+* `ember install emberx-file-input@1.1.2`
+##### More info [here](https://github.com/Aathi/firebase-storage-ember-example)
+
+#### maybe look into emberx-slider as well?
 
 
 #### Routes:
@@ -72,5 +79,6 @@ ember g model comment
 #### Controllers:
 ```
 ember g controller users/new
+ember g controller posts/new
 ember g controller application
 ```
