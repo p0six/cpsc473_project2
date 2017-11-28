@@ -35,16 +35,6 @@
   </nav>
 </header>
 <div class="container">
-  <button {{action "showModalDialog" "HAAIIIII BYOCH"}}>Toggle Modal</button> <!-- onClose="toggleModal"-->
-  <!-- need to setup conditionals to display a different modal based on the modal called -->
-  <!-- https://www.npmjs.com/package/ember-dialog -->
-  <!-- https://github.com/dbbk/ember-routable-modal  -->
-  <!-- https://gist.github.com/izelnakri/b18e3c490116404a65b9b87972483f18 -->
-  {{#if isShowingModal}}
-    {{#modal-dialog translucentOverlay=true close='closeModalDialog'}}
-      <h2>{{modalMessage}}</h2>
-    {{/modal-dialog}}
-  {{/if}}
   {{#if isShowingLoginModal}}
     {{#modal-dialog translucentOverlay=true close='closeLoginModal'}}
       <h1>{{modalMessage}}</h1>
@@ -84,37 +74,52 @@
   {{/if}}
   {{#if isShowingNewPostModal}}
     {{#modal-dialog translucentOverlay=true close='closeNewPostModal'}}
-      <h1>{{modalMessage}}</h1>
-      <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
-      <!-- is there a way to get drop/drop working for uploading images -->
-      <!-- we need some styling for the modal -->
-      <!--
-      only registered users can post.  posts need to be associated with the user
-      need to figure out how to stuff the user data into the post and vice versa
-     -->
-      {{x-file-input name="files"
-        multiple=true
-        action="didSelectFiles"
-        alt="Choose a File"
-        class="btn btn-success-outline btn-block" }}
-      {{#if progress}}
-        <!--<div style="margin-top:50px;">-->
-        <div>
-          <progress class="progress progress-success" value={{progress}} max="100"></progress>
-        </div>
-      {{/if}}
-      {{#if status}}
-        <!--<p class="text-primary">{{progressText}}</p>-->
-        <p>{{progressText}}</p>
-      {{/if}}
-      {{#if downloadURL}}
-        <!--<div class="text-center">-->
-        <div>
-          <!--<img src="{{downloadURL}}" alt="" class="img-responsive img-rounded">-->
-          <img src="{{downloadURL}}" alt=""/>
-        </div>
-      {{/if}}
+      <div id="postSubmissionForm">
+        <form {{action "createPost" session.currentUser.uid on="submit"}}>
+          <div class="form-group">
+            {{input value=model.post.title type="text" class="form-control"
+              name="title" required=true placeholder="Post Title"}}
+          </div>
+          <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
+          <!-- is there a way to get drop/drop working for uploading images -->
+          <!-- we need some styling for the modal -->
+          <!--
+          only registered users can post.  posts need to be associated with the user
+          need to figure out how to stuff the user data into the post and vice versa
+          -->
+          <div class="form-group">
+            {{x-file-input name="files"
+              multiple=true
+              action="didSelectFiles"
+              alt="Choose a File"
+              class="btn btn-success-outline btn-block" }}
+            {{#if progress}}
+              <div class="text-center">
+                <progress class="progress progress-success" value={{progress}} max="100"></progress>
+              </div>
+            {{/if}}
+            {{#if status}}
+              <div class="text-center">
+                <p class="text-primary">{{progressText}}</p>
+              </div>
+            {{/if}}
+            {{#if downloadURL}}
+              <div class="text-center">
+                <img src="{{downloadURL}}" alt="" class="img-responsive img-rounded"/>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Post!</button>
+              </div>
+            {{/if}}
+            <div class="form-group">
+              <button {{action 'cancelCreatePost'}} class="btn btn-link btn-block">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
     {{/modal-dialog}}
   {{/if}}
+</div>
+<div class="container">
   {{outlet}}
 </div>

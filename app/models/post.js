@@ -2,7 +2,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   title: DS.attr('string'),
-  imgUrl: DS.attr('string'),
+  downloadURL: DS.attr('string'),
   dateSubmitted: DS.attr('date'),
   score: DS.attr('number'), // calculated value (upvoters - downvoters)
   user: DS.belongsTo('user'),

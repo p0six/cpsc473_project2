@@ -5,8 +5,26 @@ import Ember from 'ember';
 import firebase from 'firebase';
 window.firebase = firebase;
 
+function cleanData(self) {
+  // This function should ensure that when a new post is created, or when a New
+  // user is created, we do not leave dirty records behind and have reinitialized
+  // the model such that a new user can create an additional post without seeing
+  // any traces of their previous post data in the new post form.
+  self.get('model.post');
+  /*
+  var dirtyPost = self.get('model.post');
+  if (dirtyPost.get('hasDirtyAttributes')) {
+    dirtyPost.deleteRecord();
+  }
+  var dirtyUser = self.get('model.post');
+  if (dirtyUser.get('hasDirtyAttributes')) {
+    dirtyUser.deleteRecord();
+  }
+  self.send('refreshModel');
+  */
+}
+
 export default Controller.extend({
-  isShowingModal: false,
   isShowingLoginModal: false,
   isShowingRegisterModal: false,
   isShowingNewPostModal: false,
@@ -14,13 +32,6 @@ export default Controller.extend({
   formPassword: null,
   firebaseApp: Ember.inject.service(),
   actions: {
-    showModalDialog(message) {
-      this.set('modalMessage', message);
-      this.set('isShowingModal', true);
-    },
-    closeModalDialog() {
-      this.set('isShowingModal', false);
-    },
     showLoginModal(message) {
       this.set('modalMessage', message);
       this.set('isShowingLoginModal', true);
@@ -50,10 +61,7 @@ export default Controller.extend({
         password: self.formPassword
       }).then(function() {
         self.set('isShowingLoginModal', false);
-        var dirtyUser = self.get('model.user');
-        if (dirtyUser.get('hasDirtyAttributes')) {
-          dirtyUser.deleteRecord();
-        }
+        cleanData(self);
       }).catch(function(error) {
         var errorMessage = error.message;
         // TODO: replace alert with something nicer...
@@ -61,8 +69,8 @@ export default Controller.extend({
       });
     },
     logoutUser() {
+      cleanData(this);
       this.get('session').close();
-      this.send('refreshModel'); // took a while to figure this one out :D
     },
     createUser(email) {
       // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#createUserWithEmailAndPassword
@@ -83,10 +91,7 @@ export default Controller.extend({
         });
         return user.save().then(function() {
           // TODO: autheticating session without a 2nd call to firebase
-          var dirtyUser = self.get('model.user');
-          if (dirtyUser.get('hasDirtyAttributes')) {
-            dirtyUser.deleteRecord();
-          }
+          cleanData(self);
           self.get('session').open('firebase', {
             provider: 'password',
             email: email,
@@ -101,6 +106,7 @@ export default Controller.extend({
       });
     },
     cancelCreateUser() {
+      cleanData(self);
       this.set('isShowingRegisterModal', false);
     },
     didSelectFiles(data) {
@@ -124,6 +130,35 @@ export default Controller.extend({
       }, () => {
         this.set('downloadURL', uploadTask.snapshot.downloadURL);
       });
+    },
+    createPost(uid) { // session.currentUser.uid passed in as uid
+      var self = this;
+      this.store.findRecord('user', uid).then(function(user) {
+        const post = self.store.createRecord('post', {
+          title: self.get('model.post.title'),
+          downloadURL: self.get('downloadURL'),
+          dateSubmitted: new Date(),
+          score: 0,
+        });
+        user.get('posts').then(function(posts) {
+          posts.addObject(post);
+        });
+        user.save().then(function() {
+          return post.save().then(function() {
+            cleanData(self);
+            self.set('isShowingNewPostModal', false);
+          }).catch(function(error) {
+            alert(error);
+          });
+        }).catch(function(error) {
+          alert(error);
+        });
+
+      });
+    },
+    cancelCreatePost() {
+      cleanData(this);
+      this.set('isShowingNewPostModal', false);
     }
   }
 });
