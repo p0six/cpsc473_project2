@@ -25,6 +25,7 @@
         {{#if session.isAuthenticated}}
           Logged in as {{session.currentUser.email}}
           <button {{action "logoutUser"}}>Sign out</button>
+          <button {{action "showNewPostModal" "New Post"}}>New Post</button>
         {{else}}
           <button {{action "showLoginModal" "Login"}}>Login</button>
           <button {{action "showRegisterModal" "Registration"}}>Register</button>
@@ -79,6 +80,18 @@
         <button type="submit" class="btn btn-primary btn-block">Create</button>
         <button {{action 'cancelCreateUser'}} class="btn btn-link btn-block">Cancel</button>
       </form>
+    {{/modal-dialog}}
+  {{/if}}
+  {{#if isShowingNewPostModal}}
+    {{#modal-dialog translucentOverlay=true close='closeNewPostModal'}}
+      <h1>{{modalMessage}}</h1>
+      <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
+      <!-- is there a way to get drop/drop working for uploading images -->
+      <!-- we need some styling for the modal -->
+      <!--
+      only registered users can post.  posts need to be associated with the user
+      need to figure out how to stuff the user data into the post and vice versa
+     -->
     {{/modal-dialog}}
   {{/if}}
   {{outlet}}

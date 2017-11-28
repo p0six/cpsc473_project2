@@ -5,6 +5,7 @@ export default Controller.extend({
   isShowingModal: false,
   isShowingLoginModal: false,
   isShowingRegisterModal: false,
+  isShowingNewPostModal: false,
   formEmail: null,
   formPassword: null,
   firebaseApp: Ember.inject.service(),
@@ -29,6 +30,13 @@ export default Controller.extend({
     },
     closeRegisterModal() {
       this.set('isShowingRegisterModal', false);
+    },
+    showNewPostModal(message) {
+      this.set('modalMessage', message);
+      this.set('isShowingNewPostModal', true);
+    },
+    closeNewPostModal() {
+      this.set('isShowingNewPostModal', false);
     },
     loginUser() {
       var self = this;
