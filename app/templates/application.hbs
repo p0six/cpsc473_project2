@@ -2,41 +2,31 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed"
-          data-toggle="collapse" data-target="#top-navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand">ImgRepo</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="#">ImgRepo</a>
       </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="top-navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="#">Test Link</a>
-          </li>
-          <li>
-            <a href="#">Test Link</a>
-          </li>
-        </ul>
-        {{#if session.isAuthenticated}}
-          Logged in as {{session.currentUser.email}}
-          <button {{action "logoutUser"}}>Sign out</button>
-          <button {{action "showNewPostModal" "New Post"}}>New Post</button>
-        {{else}}
-          <button {{action "showLoginModal" "Login"}}>Login</button>
-          <button {{action "showRegisterModal" "Registration"}}>Register</button>
-        {{/if}}
-      </div> <!-- /.navbar-collapse -->
-    </div> <!-- /.container-fluid -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="navbar-form navbar-right">
+          {{#if session.isAuthenticated}}
+            <button id="newPostButton" type="button" class="btn btn-primary" {{action "showNewPostModal" "New Post"}}>New Post</button>
+            <button id="signOutButon" type="button" class="btn btn-primary" {{action "logoutUser"}}>{{session.currentUser.email}}</button>
+          {{else}}
+            <button id="loginButton" type="button" class="btn btn-primary" {{action "showLoginModal" "Login"}}>Login</button>
+            <button id="registerButton" type="button" class="btn btn-primary" {{action "showRegisterModal" "Registration"}}>Register</button>
+          {{/if}}
+        </div>
+      </div>
+    </div>
   </nav>
 </header>
 <div class="container">
   {{#if isShowingLoginModal}}
-    {{#modal-dialog translucentOverlay=true close='closeLoginModal'}}
+    {{#modal-dialog translucentOverlay=true close='closeLoginModal' }}
       <h1>{{modalMessage}}</h1>
       <form {{action "loginUser" on="submit"}}>
         <div class="form-group">
@@ -50,7 +40,7 @@
     {{/modal-dialog}}
   {{/if}}
   {{#if isShowingRegisterModal}}
-    {{#modal-dialog translucentOverlay=true close='closeRegisterModal'}}
+    {{#modal-dialog translucentOverlay=true close='closeRegisterModal' }}
       <h1>{{modalMessage}}</h1>
       <form {{action "createUser" model.user.email on="submit"}}>
         <div class="form-group">
@@ -73,7 +63,7 @@
     {{/modal-dialog}}
   {{/if}}
   {{#if isShowingNewPostModal}}
-    {{#modal-dialog translucentOverlay=true close='closeNewPostModal'}}
+    {{#modal-dialog translucentOverlay=true close='closeNewPostModal' }}
       <div id="postSubmissionForm">
         <form {{action "createPost" session.currentUser.uid on="submit"}}>
           <div class="form-group">
@@ -83,10 +73,6 @@
           <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
           <!-- is there a way to get drop/drop working for uploading images -->
           <!-- we need some styling for the modal -->
-          <!--
-          only registered users can post.  posts need to be associated with the user
-          need to figure out how to stuff the user data into the post and vice versa
-          -->
           <div class="form-group">
             {{x-file-input name="files"
               multiple=true
@@ -95,7 +81,7 @@
               class="btn btn-success-outline btn-block" }}
             {{#if progress}}
               <div class="text-center">
-                <progress class="progress progress-success" value={{progress}} max="100"></progress>
+                <progress class="progress progress-success" value= {{progress}} max="100"></progress>
               </div>
             {{/if}}
             {{#if status}}
@@ -105,7 +91,7 @@
             {{/if}}
             {{#if downloadURL}}
               <div class="text-center">
-                <img src="{{downloadURL}}" alt="" class="img-responsive img-rounded"/>
+                <img src="{{downloadURL}}" alt="" class="img-responsive img-rounded" />
               </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Post!</button>
