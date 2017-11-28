@@ -141,6 +141,8 @@ export default Controller.extend({
           score: 0,
         });
 
+        post.set('user', user);
+
         user.get('posts').then(function(posts) {
           posts.addObject(post);
         });
