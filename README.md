@@ -1,3 +1,14 @@
+## TO RUN THE application
+
+1. Pull the application from github
+2. cd to the folder ex. cd imgrepo
+3. type: npm install
+4. type: npm install -g bower@latest
+5. type: bower install
+6. type: ember serve
+7. enjoy the app at: http://localhost:4200
+
+
 # imgrepo - An image repository built on EmberJS.
 
 * `ember new imgrepo && cd imgrepo`
