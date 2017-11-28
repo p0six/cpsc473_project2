@@ -140,20 +140,17 @@ export default Controller.extend({
           dateSubmitted: new Date(),
           score: 0,
         });
+
         user.get('posts').then(function(posts) {
           posts.addObject(post);
         });
-        user.save().then(function() {
-          return post.save().then(function() {
+
+        post.save().then(function() {
+          return user.save().then(function() {
             cleanData(self);
             self.set('isShowingNewPostModal', false);
-          }).catch(function(error) {
-            alert(error);
           });
-        }).catch(function(error) {
-          alert(error);
         });
-
       });
     },
     cancelCreatePost() {
