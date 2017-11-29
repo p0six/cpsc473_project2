@@ -1,27 +1,13 @@
 import Controller from '@ember/controller';
 import Ember from 'ember';
 
-// firebase import thanks to: https://github.com/firebase/emberfire/issues/490
 import firebase from 'firebase';
 window.firebase = firebase;
 
 function cleanData(self) {
-  // This function should ensure that when a new post is created, or when a New
-  // user is created, we do not leave dirty records behind and have reinitialized
-  // the model such that a new user can create an additional post without seeing
-  // any traces of their previous post data in the new post form.
-  self.get('model.post');
-  /*
-  var dirtyPost = self.get('model.post');
-  if (dirtyPost.get('hasDirtyAttributes')) {
-    dirtyPost.deleteRecord();
-  }
-  var dirtyUser = self.get('model.post');
-  if (dirtyUser.get('hasDirtyAttributes')) {
-    dirtyUser.deleteRecord();
-  }
+  self.get('model.post').deleteRecord();
+  self.get('model.user').deleteRecord();
   self.send('refreshModel');
-  */
 }
 
 export default Controller.extend({
@@ -60,8 +46,10 @@ export default Controller.extend({
         email: self.formEmail,
         password: self.formPassword
       }).then(function() {
-        self.set('isShowingLoginModal', false);
+        self.set('formEmail', '');
+        self.set('formPassword', '');
         cleanData(self);
+        self.set('isShowingLoginModal', false);
       }).catch(function(error) {
         var errorMessage = error.message;
         // TODO: replace alert with something nicer...
@@ -91,13 +79,14 @@ export default Controller.extend({
         });
         return user.save().then(function() {
           // TODO: autheticating session without a 2nd call to firebase
-          cleanData(self);
           self.get('session').open('firebase', {
             provider: 'password',
             email: email,
             password: self.formPassword
+          }).then (function() {
+            cleanData(self);
+            self.set('isShowingRegisterModal', false);
           });
-          self.set('isShowingRegisterModal', false);
         });
       }).catch(function(error) {
         var errorMessage = error.message; // error.code also available
@@ -109,10 +98,12 @@ export default Controller.extend({
       cleanData(self);
       this.set('isShowingRegisterModal', false);
     },
-    didSelectFiles(data) {
+    didSelectFiles(data, resetInput) {
       const storageRef = window.firebase.storage().ref();
       let file = data;
-      var uploadTask = storageRef.child('images/' + file[0].name).put(file[0]);
+      let fileExtension = file[0].name.replace(/^.*\./, '');
+      var uploadTask = storageRef.child('images/' + this.get('model.post.id') +
+        '.' + fileExtension).put(file[0]);
       uploadTask.on(window.firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         this.set('progressText', `Upload is ${Math.round(progress * 100) / 100} % done`);
@@ -129,9 +120,14 @@ export default Controller.extend({
         alert(error.message);
       }, () => {
         this.set('downloadURL', uploadTask.snapshot.downloadURL);
+        this.set('progress', false);
+        this.set('status', false);
+        resetInput();
       });
     },
     createPost(uid) { // session.currentUser.uid passed in as uid
+      // https://github.com/firebase/emberfire/blob/master/docs/guide/relationships.md
+      // look for: "To define embedded records, we can do..."
       var self = this;
       this.store.findRecord('user', uid).then(function(user) {
         const post = self.store.createRecord('post', {
@@ -139,9 +135,8 @@ export default Controller.extend({
           downloadURL: self.get('downloadURL'),
           dateSubmitted: new Date(),
           score: 0,
+          user: user
         });
-
-        post.set('user', user);
 
         user.get('posts').then(function(posts) {
           posts.addObject(post);
@@ -150,6 +145,7 @@ export default Controller.extend({
         post.save().then(function() {
           return user.save().then(function() {
             cleanData(self);
+            self.set('downloadURL', false);
             self.set('isShowingNewPostModal', false);
           });
         });
@@ -157,6 +153,7 @@ export default Controller.extend({
     },
     cancelCreatePost() {
       cleanData(this);
+      this.set('downloadURL', false);
       this.set('isShowingNewPostModal', false);
     }
   }

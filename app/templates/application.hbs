@@ -72,25 +72,27 @@
           </div>
           <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
           <!-- is there a way to get drop/drop working for uploading images -->
-          <!-- we need some styling for the modal -->
           <div class="form-group">
-            {{x-file-input name="files"
-              multiple=true
-              action="didSelectFiles"
-              alt="Choose a File"
-              class="btn btn-success-outline btn-block" }}
+            {{#unless downloadURL}}
+              {{x-file-input name="files"
+                multiple=false
+                action="didSelectFiles"
+                alt="Choose a File"
+                accept="image/png,image/jpg,image/gif"
+                class="btn btn-primary btn-success-outline btn-block" }}
+            {{/unless}}
             {{#if progress}}
-              <div class="text-center">
-                <progress class="progress progress-success" value= {{progress}} max="100"></progress>
+              <div class="form-group text-center">
+                <progress class="progress progress-success" value={{progress}} max="100"></progress>
               </div>
             {{/if}}
             {{#if status}}
-              <div class="text-center">
+              <div class="form-group text-center">
                 <p class="text-primary">{{progressText}}</p>
               </div>
             {{/if}}
             {{#if downloadURL}}
-              <div class="text-center">
+              <div class="form-group text-center">
                 <img src="{{downloadURL}}" alt="" class="img-responsive img-rounded" />
               </div>
               <div class="form-group">
