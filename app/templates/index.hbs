@@ -1,4 +1,7 @@
 {{#each sortedModel as |post|}}
   <!-- https://www.codeschool.com/blog/2016/03/21/dynamic-sorting-in-emberjs/  -->
-  <img src="{{post.downloadURL}}" alt="" class="img-responsive img-rounded"/>
+  <div>
+    <img src="{{post.downloadURL}}" alt="{{post.title}}" class="img-responsive img-rounded"/>
+    <span class="detail-image-title">{{post.title}}</span>
+  </div>
 {{/each}}
