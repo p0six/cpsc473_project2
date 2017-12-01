@@ -97,7 +97,7 @@ export default Controller.extend({
       });
     },
     cancelCreateUser() {
-      cleanData(self);
+      cleanData(this);
       this.set('isShowingRegisterModal', false);
     },
     didSelectFiles(data, resetInput) {
