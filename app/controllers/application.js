@@ -155,11 +155,12 @@ export default Controller.extend({
     },
     cancelCreatePost() {
       // We now delete the uploaded file if the user cancels out of the post...
+      var self = this;
       var uploadRef = this.get('uploadRef');
       if (uploadRef) {
         var imageRef = window.firebase.storage().ref().child(uploadRef);
         imageRef.delete().then(function() {
-          this.set('uploadRef', false);
+          self.set('uploadRef', false);
         }).catch(error => {
           sweetAlert({'title': 'Error deleting temp image!', 'type': 'error', 'text': error.message});
         });
