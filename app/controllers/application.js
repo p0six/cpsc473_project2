@@ -158,8 +158,7 @@ export default Controller.extend({
       var self = this;
       var uploadRef = this.get('uploadRef');
       if (uploadRef) {
-        var imageRef = window.firebase.storage().ref().child(uploadRef);
-        imageRef.delete().then(function() {
+        window.firebase.storage().ref().child(uploadRef).delete().then(function() {
           self.set('uploadRef', false);
         }).catch(error => {
           sweetAlert({'title': 'Error deleting temp image!', 'type': 'error', 'text': error.message});
