@@ -2,6 +2,8 @@ import Controller from '@ember/controller';
 import Ember from 'ember';
 
 import firebase from 'firebase';
+import sweetAlert from 'ember-sweetalert';
+
 window.firebase = firebase;
 
 function cleanData(self) {
@@ -50,10 +52,10 @@ export default Controller.extend({
         self.set('formPassword', '');
         cleanData(self);
         self.set('isShowingLoginModal', false);
+        sweetAlert({'title': 'Login Success!', 'type': 'success'});
       }).catch(function(error) {
         var errorMessage = error.message;
-        // TODO: replace alert with something nicer...
-        alert(errorMessage);
+        sweetAlert({'title': 'Login Failure!', 'type': 'error', 'text': errorMessage});
       });
     },
     logoutUser() {
@@ -85,13 +87,13 @@ export default Controller.extend({
             password: self.formPassword
           }).then (function() {
             cleanData(self);
+            sweetAlert({'title': 'Registration Success!', 'type': 'success', 'text': 'Welcome to ImgRepo!'});
             self.set('isShowingRegisterModal', false);
           });
         });
       }).catch(function(error) {
         var errorMessage = error.message; // error.code also available
-        // TODO: replace alert with something nicer...
-        alert(errorMessage);
+        sweetAlert({'title': 'Registration Failure!', 'type': 'error', 'text': errorMessage});
       });
     },
     cancelCreateUser() {
@@ -117,7 +119,7 @@ export default Controller.extend({
             break;
         }
       }, (error) => {
-        alert(error.message);
+        sweetAlert({'title': 'Upload Failure!', 'type': 'error', 'text': error.message});
       }, () => {
         this.set('downloadURL', uploadTask.snapshot.downloadURL);
         this.set('progress', false);
@@ -126,8 +128,6 @@ export default Controller.extend({
       });
     },
     createPost(uid) { // session.currentUser.uid passed in as uid
-      // https://github.com/firebase/emberfire/blob/master/docs/guide/relationships.md
-      // look for: "To define embedded records, we can do..."
       var self = this;
       this.store.findRecord('user', uid).then(function(user) {
         const post = self.store.createRecord('post', {
@@ -142,11 +142,12 @@ export default Controller.extend({
           posts.addObject(post);
         });
 
-        post.save().then(function() {
+        post.save().then(function(myPost) {
           return user.save().then(function() {
             cleanData(self);
             self.set('downloadURL', false);
             self.set('isShowingNewPostModal', false);
+            sweetAlert({'title': 'Posted!', 'type': 'success', 'text': 'PostID: ' + myPost.id});
           });
         });
       });
