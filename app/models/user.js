@@ -2,7 +2,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   email: DS.attr('string'),
-  username: DS.attr('string'), // how can we ensure this is unique?
+  displayName: DS.attr('string'), // how can we ensure this is unique?
   firstName: DS.attr('string'),
   lastName: DS.attr('string'),
   bio: DS.attr('string'),

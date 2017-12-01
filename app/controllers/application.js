@@ -70,7 +70,7 @@ export default Controller.extend({
         const user = this.store.createRecord('user', {
           id: userResponse.uid,
           email: userResponse.email, // must be unique
-          username: this.get('model.user.username'),
+          displayName: this.get('model.user.displayName'),
           firstName: this.get('model.user.firstName'),
           lastName: this.get('model.user.lastName'),
           bio: this.get('model.user.bio'),
@@ -91,6 +91,9 @@ export default Controller.extend({
           });
         });
       }).catch(function(error) {
+        // could maybe do a switch on error.code since firebase will spit out
+        // descriptive errors that allow a user to potentially brute force site
+        // for valid logins...
         var errorMessage = error.message; // error.code also available
         sweetAlert({'title': 'Registration Failure!', 'type': 'error', 'text': errorMessage});
       });

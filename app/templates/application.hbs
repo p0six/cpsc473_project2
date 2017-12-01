@@ -33,7 +33,7 @@
           <label for="email">email:</label> {{input value=formEmail
             type="text" class="form-control" name="email" required=true}}
           <label for="password">Password:</label> {{input value=formPassword
-            type="text" class="form-control" name="password" required=true}}
+            type="password" class="form-control" name="password" required=true}}
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </div>
       </form>
@@ -44,12 +44,12 @@
       <h1>{{modalMessage}}</h1>
       <form {{action "createUser" model.user.email on="submit"}}>
         <div class="form-group">
-          <label for="username">Username:</label> {{input value=model.user.username
-            type="text" class="form-control" name="username" required=true}}
+          <label for="displayName">Display Name:</label> {{input value=model.user.displayName
+            type="text" class="form-control" name="displayName" required=true}}
           <label for="email">email:</label> {{input value=model.user.email
             type="text" class="form-control" name="email" required=true}}
           <label for="password">Password:</label> {{input value=formPassword
-            type="text" class="form-control" name="password" required=true}}
+            type="password" class="form-control" name="password" required=true}}
           <label for="firstName">First Name:</label> {{input value=model.user.firstName
             type="text" class="form-control" name="firstName" required=true}}
           <label for="lastName">Last Name:</label> {{input value=model.user.lastName
