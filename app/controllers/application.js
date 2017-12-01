@@ -54,8 +54,7 @@ export default Controller.extend({
         self.set('isShowingLoginModal', false);
         sweetAlert({'title': 'Login Success!', 'type': 'success'});
       }).catch(function(error) {
-        var errorMessage = error.message;
-        sweetAlert({'title': 'Login Failure!', 'type': 'error', 'text': errorMessage});
+        sweetAlert({'title': 'Login Failure!', 'type': 'error', 'text': error.message});
       });
     },
     logoutUser() {
@@ -80,7 +79,7 @@ export default Controller.extend({
           comment_score: 0
         });
         return user.save().then(function() {
-          // TODO: autheticating session without a 2nd call to firebase
+          // TODO: authenticating session without a 2nd call to firebase
           self.get('session').open('firebase', {
             provider: 'password',
             email: email,
@@ -104,8 +103,9 @@ export default Controller.extend({
       const storageRef = window.firebase.storage().ref();
       let file = data;
       let fileExtension = file[0].name.replace(/^.*\./, '');
-      var uploadTask = storageRef.child('images/' + this.get('model.post.id') +
-        '.' + fileExtension).put(file[0]);
+      this.set('uploadRef', 'images/' + this.get('model.post.id') + '.' + fileExtension);
+      var uploadTask = storageRef.child(this.get('uploadRef')).put(file[0]);
+
       uploadTask.on(window.firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         this.set('progressText', `Upload is ${Math.round(progress * 100) / 100} % done`);
@@ -146,6 +146,7 @@ export default Controller.extend({
           return user.save().then(function() {
             cleanData(self);
             self.set('downloadURL', false);
+            self.set('uploadRef', false);
             self.set('isShowingNewPostModal', false);
             sweetAlert({'title': 'Posted!', 'type': 'success', 'text': 'PostID: ' + myPost.id});
           });
@@ -153,6 +154,16 @@ export default Controller.extend({
       });
     },
     cancelCreatePost() {
+      // We now delete the uploaded file if the user cancels out of the post...
+      var uploadRef = this.get('uploadRef');
+      if (uploadRef) {
+        var imageRef = window.firebase.storage().ref().child(uploadRef);
+        imageRef.delete().then(function() {
+          this.set('uploadRef', false);
+        }).catch(error => {
+          sweetAlert({'title': 'Error deleting temp image!', 'type': 'error', 'text': error.message});
+        });
+      }
       cleanData(this);
       this.set('downloadURL', false);
       this.set('isShowingNewPostModal', false);
