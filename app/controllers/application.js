@@ -2,6 +2,8 @@ import Controller from '@ember/controller';
 import Ember from 'ember';
 
 import firebase from 'firebase';
+import sweetAlert from 'ember-sweetalert';
+
 window.firebase = firebase;
 
 function cleanData(self) {
@@ -50,10 +52,9 @@ export default Controller.extend({
         self.set('formPassword', '');
         cleanData(self);
         self.set('isShowingLoginModal', false);
+        sweetAlert({'title': 'Login Success!', 'type': 'success'});
       }).catch(function(error) {
-        var errorMessage = error.message;
-        // TODO: replace alert with something nicer...
-        alert(errorMessage);
+        sweetAlert({'title': 'Login Failure!', 'type': 'error', 'text': error.message});
       });
     },
     logoutUser() {
@@ -70,7 +71,7 @@ export default Controller.extend({
         const user = this.store.createRecord('user', {
           id: userResponse.uid,
           email: userResponse.email, // must be unique
-          username: this.get('model.user.username'),
+          displayName: this.get('model.user.displayName'),
           firstName: this.get('model.user.firstName'),
           lastName: this.get('model.user.lastName'),
           bio: this.get('model.user.bio'),
@@ -79,32 +80,36 @@ export default Controller.extend({
           comment_score: 0
         });
         return user.save().then(function() {
-          // TODO: autheticating session without a 2nd call to firebase
+          // TODO: authenticating session without a 2nd call to firebase
           self.get('session').open('firebase', {
             provider: 'password',
             email: email,
             password: self.formPassword
           }).then (function() {
             cleanData(self);
+            sweetAlert({'title': 'Registration Success!', 'type': 'success', 'text': 'Welcome to ImgRepo!'});
             self.set('isShowingRegisterModal', false);
           });
         });
       }).catch(function(error) {
+        // could maybe do a switch on error.code since firebase will spit out
+        // descriptive errors that allow a user to potentially brute force site
+        // for valid logins...
         var errorMessage = error.message; // error.code also available
-        // TODO: replace alert with something nicer...
-        alert(errorMessage);
+        sweetAlert({'title': 'Registration Failure!', 'type': 'error', 'text': errorMessage});
       });
     },
     cancelCreateUser() {
-      cleanData(self);
+      cleanData(this);
       this.set('isShowingRegisterModal', false);
     },
     didSelectFiles(data, resetInput) {
       const storageRef = window.firebase.storage().ref();
       let file = data;
       let fileExtension = file[0].name.replace(/^.*\./, '');
-      var uploadTask = storageRef.child('images/' + this.get('model.post.id') +
-        '.' + fileExtension).put(file[0]);
+      this.set('uploadRef', 'images/' + this.get('model.post.id') + '.' + fileExtension);
+      var uploadTask = storageRef.child(this.get('uploadRef')).put(file[0]);
+
       uploadTask.on(window.firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         this.set('progressText', `Upload is ${Math.round(progress * 100) / 100} % done`);
@@ -118,7 +123,7 @@ export default Controller.extend({
             break;
         }
       }, (error) => {
-        alert(error.message);
+        sweetAlert({'title': 'Upload Failure!', 'type': 'error', 'text': error.message});
       }, () => {
         this.set('downloadURL', uploadTask.snapshot.downloadURL);
         this.set('progress', false);
@@ -127,8 +132,6 @@ export default Controller.extend({
       });
     },
     createPost(uid) { // session.currentUser.uid passed in as uid
-      // https://github.com/firebase/emberfire/blob/master/docs/guide/relationships.md
-      // look for: "To define embedded records, we can do..."
       var self = this;
       this.store.findRecord('user', uid).then(function(user) {
         const post = self.store.createRecord('post', {
@@ -143,16 +146,28 @@ export default Controller.extend({
           posts.addObject(post);
         });
 
-        post.save().then(function() {
+        post.save().then(function(myPost) {
           return user.save().then(function() {
             cleanData(self);
             self.set('downloadURL', false);
+            self.set('uploadRef', false);
             self.set('isShowingNewPostModal', false);
+            sweetAlert({'title': 'Posted!', 'type': 'success', 'text': 'PostID: ' + myPost.id});
           });
         });
       });
     },
     cancelCreatePost() {
+      // We now delete the uploaded file if the user cancels out of the post...
+      var self = this;
+      var uploadRef = this.get('uploadRef');
+      if (uploadRef) {
+        window.firebase.storage().ref().child(uploadRef).delete().then(function() {
+          self.set('uploadRef', false);
+        }).catch(error => {
+          sweetAlert({'title': 'Error deleting temp image!', 'type': 'error', 'text': error.message});
+        });
+      }
       cleanData(this);
       this.set('downloadURL', false);
       this.set('isShowingNewPostModal', false);

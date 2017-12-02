@@ -17,6 +17,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
     "moment": "^2.19.2",
-    "ember": "^2.16.2"
+    "ember": "^2.16.2",
+    "sweetalert2": "^6.1.0"
   }
 }
