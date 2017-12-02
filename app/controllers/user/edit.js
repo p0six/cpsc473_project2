@@ -9,7 +9,7 @@ export default Controller.extend({
     updateUser() {
         var self = this;
         this.store.findRecord('user', this.get('session.currentUser.uid')).then(function(u) {
-        u.set('username', self.get('model.username'));
+        u.set('displayName', self.get('model.displayName'));
         u.set('firstName', self.get('model.firstName'));
         u.set('bio', self.get('model.bio'));
         u.set('lastName', self.get('model.lastName'));
