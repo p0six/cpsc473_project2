@@ -59,6 +59,7 @@ export default Controller.extend({
     logoutUser() {
       cleanData(this);
       this.get('session').close();
+      this.transitionToRoute('index');
     },
     createUser(email) {
       // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#createUserWithEmailAndPassword

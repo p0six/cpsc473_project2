@@ -8,7 +8,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="#">ImgRepo</a>
+        <a class="navbar-brand" href="#"><b style="color:orange;text-align:center">ImgRepo</b></a>
+        {{#if session.isAuthenticated}}
+        {{#link-to "user.edit"}}<a class="navbar-brand" href="#">Edit Profile</a>{{/link-to}}
+        <a class="navbar-brand" href="#">Your Posts</a>
+        {{/if}}
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="navbar-form navbar-right">
