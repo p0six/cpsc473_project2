@@ -1,1 +1,53 @@
-{{outlet}}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-1 col-sm-2 col-md-3">
+      <br><br>
+      {{#if showPrevious}}
+        {{#link-to 'post' prevPost (query-params myIndex=prevIndex posts=posts)}}
+           <button class="btn btn-primary">prev!</button>
+        {{/link-to}}
+      {{/if}}
+      <br><br>
+    </div>
+    <div class="col-xs-10 col-sm-8 col-md-6">
+      <br>
+      <h1>{{model.title}}</h1>
+      <br>
+      <h4> by {{model.user.displayName}}
+        <small><i>{{model.dateSubmitted}}</i></small>
+      </h4>
+      <br>
+      <img src="{{model.downloadURL}}" alt="" class="img-responsive img-rounded"/>
+      <br>
+      <span class="">UP</span>
+      <span class="">DOWN</span>
+      <small><i>{{model.score}}</i></small>
+      <br>
+      <h4>Comments:</h4>
+      {{#each model.comments as |comment|}}
+        <div class="media">
+          <!--NOTE: remove if there are no rofile images-->
+          <div class="media-left">
+              <!--TODO: GET USERPROFILE IMG-->
+            <img src="../../../public/assets/images/sasquatch_th.png" class="media-object" style="width:45px">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{comment.user.displayName}}
+              <small><i>{{coment.dateSubmitted}}</i></small>
+            </h4>
+            <p>{{comment.comment}}</p>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <div class="col-xs-1 col-sm-2 col-md-3">
+      <br><br>
+      {{#if showNext}}
+        {{#link-to 'post' nextPost (query-params myIndex=nextIndex posts=posts)}}
+           <button class="btn btn-primary">next!</button>
+        {{/link-to}}
+      {{/if}}
+      <br><br>
+    </div>
+  </div>
+</div>
