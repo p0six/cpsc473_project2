@@ -1,5 +1,4 @@
 import Controller from '@ember/controller';
-import Ember from 'ember';
 
 export default Controller.extend({
   queryParams: ['myIndex', 'posts'],
@@ -42,11 +41,11 @@ export default Controller.extend({
     }
   }.property('showNext','posts','nextIndex'),
   actions: {
-    test() {
+    test() {/*
       console.log(this.get('posts'));
       console.log(this.get('posts').objectAt(this.get('prevIndex')));
       console.log(this.get('posts').objectAt(this.get('myIndex')));
-      console.log(this.get('posts').objectAt(this.get('nextIndex')));
+      console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
     }
   }
 

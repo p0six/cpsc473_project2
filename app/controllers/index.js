@@ -26,10 +26,6 @@ export default Controller.extend({
       }.property('modelDesc'));
     },
     test(){
-      console.log(this.get('postIDs'));
-      /*this.get('sortedModel').forEach(function(item) {
-        console.log(item.id);
-      });*/
     }
   }
 });
