@@ -1,9 +1,15 @@
+<button {{action 'isSortedByAesc'}} class="btn btn-primary">HOT!</button>
+<button {{action 'isSortedByDesc'}} class="btn btn-primary">NEW!</button>
+
+<p><br></p>
 <div id="imageInIndexContainer">
-  {{#each sortedModel as |post|}}
+  {{#each sortedModel as |post index|}}
     <div class="imageDivInIndexParent">
-      <div class="imageDivInIndex" style={{index-image-background post.downloadURL}}>
-        <span class="imageInIndexText airstreamregular">{{post.title}}</span>
-      </div>
+      {{#link-to 'post' post.id (query-params myIndex=index posts=postIDs)}}
+        <div class="imageDivInIndex" style={{index-image-background post.downloadURL}}>
+          <span class="imageInIndexText airstreamregular">{{post.title}}</span>
+        </div>
+      {{/link-to}}
     </div>
   {{/each}}
 </div>

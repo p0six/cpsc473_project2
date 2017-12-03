@@ -10,7 +10,8 @@ Router.map(function() {
   this.route('user', function() {
     this.route('edit');
   });
-  this.route('post', function() {
+  this.route('post',  {path: ':post_id'},
+  function() {
     this.route('edit');
   });
   this.route('posts', function() {
