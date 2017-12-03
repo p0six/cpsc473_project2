@@ -19,7 +19,9 @@ Router.map(function() {
   this.route('users', function() {
     this.route('new');
   });
-  this.route('comments', function() {});
+  this.route('comments', function() {
+    this.route('new');
+  });
   this.route('comment', function() {
     this.route('edit');
   });
