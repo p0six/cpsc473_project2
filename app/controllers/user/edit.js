@@ -3,6 +3,7 @@ import Ember from 'ember';
 
 import firebase from 'firebase';
 window.firebase = firebase;
+import sweetAlert from 'ember-sweetalert';
 
 export default Controller.extend({
   actions: {
@@ -19,7 +20,8 @@ export default Controller.extend({
         // u.set('lastName', "Gandani");
         u.save();
       });
-      alert("User Profile Updated");
+      sweetAlert({'title': 'Profile Updated Successfully!', 'type': 'success'});
+      this.transitionToRoute('index');
     },
     cancelUpdateUser() {
         this.transitionToRoute('index');
