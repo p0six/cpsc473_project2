@@ -78,6 +78,7 @@ ember g route comments
 ember g route comment
 ember g route comment/index
 ember g route comment/edit
+ember g route comments/new
 ```
 
 #### Models:
@@ -92,4 +93,5 @@ ember g model comment
 ember g controller users/new
 ember g controller posts/new
 ember g controller application
+ember g controller 
 ```
