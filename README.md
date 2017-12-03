@@ -1,3 +1,5 @@
+### To view a live copy of the application... click [here](https://imghost-17e95.firebaseapp.com/)
+
 ## TO RUN THE application
 
 1. Pull the application from github
@@ -59,6 +61,72 @@ https://github.com/yapplabs/ember-modal-dialog
 
 #### maybe look into emberx-slider as well?
 
+### Firebase Hosting
+```
+retinaMike:imgrepo mromero$ firebase init
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/mromero/Documents/University/CPSC 473/ember-apps/imgrepo
+
+? Which Firebase CLI features do you want to setup for this folder? Press Space to select features, then Enter to confirm your choices. Hosting: Configure and deplo
+y Firebase Hosting sites
+
+=== Project Setup
+
+First, let's associate this project directory with a Firebase project.
+You can create multiple project aliases by running firebase use --add,
+but for now we'll just set up a default project.
+
+? Select a default Firebase project for this directory: imgHost (imghost-17e95)
+
+=== Hosting Setup
+
+Your public directory is the folder (relative to your project directory) that
+will contain Hosting assets to be uploaded with firebase deploy. If you
+have a build process for your assets, use your build's output directory.
+
+? What do you want to use as your public directory? dist
+? Configure as a single-page app (rewrite all urls to /index.html)? Yes
+? File dist/index.html already exists. Overwrite? No
+i  Skipping write of dist/index.html
+
+i  Writing configuration info to firebase.json...
+i  Writing project information to .firebaserc...
+
+â  Firebase initialization complete!
+retinaMike:imgrepo mromero$ cat firebase.json
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+retinaMike:imgrepo mromero$ firebase deploy
+
+=== Deploying to 'imghost-17e95'...
+
+i  deploying hosting
+i  hosting: preparing dist directory for upload...
+â  hosting: 29 files uploaded successfully
+
+â  Deploy complete!
+
+Project Console: https://console.firebase.google.com/project/imghost-17e95/overview
+Hosting URL: https://imghost-17e95.firebaseapp.com
+retinaMike:imgrepo mromero$
+```
+
 
 #### Routes:
 ```
@@ -93,5 +161,4 @@ ember g model comment
 ember g controller users/new
 ember g controller posts/new
 ember g controller application
-ember g controller 
 ```
