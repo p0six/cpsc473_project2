@@ -38,8 +38,8 @@ export default Route.extend({
     return iList;*/
 
     return this.store.query('comment', {
-      orderBy: 'dateSubmitted',
-      limitToLast: 10
+      orderBy: 'dateSubmitted'/*,
+      limitToLast: 10*/
     });
   }
 });
