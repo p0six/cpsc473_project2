@@ -1,1 +1,38 @@
-{{outlet}}
+<h1><center>Edit Profile</center></h1>
+<br/>
+<form {{action "updateUser" on="submit"}}>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-4">
+        <label for="username">Username:</label> {{input value=model.displayName
+      type="text" class="form-control" name="username" required=true}}
+        <br/>
+        <label for="email">Email:</label> {{input value=model.email
+      type="text" class="form-control" name="email" required=true disabled=true}}
+        <br/>
+        <label for="firstName">First Name:</label> {{input value=model.firstName
+      type="text" class="form-control" name="firstName" required=true}}
+        <br/>
+        <label for="lastName">Last Name:</label> {{input value=model.lastName
+      type="text" class="form-control" name="lastName" required=true}}
+        <br/>
+        <label for="bio">Bio - Tell us about yourself:</label> {{input value=model.bio
+      type="text" class="form-control" name="bio" required=true}}
+      </div>
+      <div class="col-lg-4"></div>
+    </div>
+  </div>
+  <br/>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-2">
+        <button type="submit" class="btn btn-success btn-block">Update</button>
+      </div>
+      <div class="col-lg-2">
+        <button {{action 'cancelUpdateUser'}} class="btn btn-danger btn-block">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
