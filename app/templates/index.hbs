@@ -1,7 +1,7 @@
 <div id="imageInIndexContainer">
   {{#each sortedModel as |post|}}
     <div class="imageDivInIndexParent">
-      <div class="imageDivInIndex" style="background-image: url({{post.downloadURL}});">
+      <div class="imageDivInIndex" style={{index-image-background post.downloadURL}}>
         <span class="imageInIndexText airstreamregular">{{post.title}}</span>
       </div>
     </div>
