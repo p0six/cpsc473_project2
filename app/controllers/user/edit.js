@@ -1,5 +1,4 @@
 import Controller from '@ember/controller';
-import Ember from 'ember';
 
 import firebase from 'firebase';
 window.firebase = firebase;
@@ -14,10 +13,6 @@ export default Controller.extend({
         u.set('firstName', self.get('model.firstName'));
         u.set('bio', self.get('model.bio'));
         u.set('lastName', self.get('model.lastName'));
-        // u.set('username', "Bhaviya04");
-        // u.set('firstName', "Bhaviya");
-        // u.set('bio', "I am always best");
-        // u.set('lastName', "Gandani");
         u.save();
       });
       sweetAlert({'title': 'Profile Updated Successfully!', 'type': 'success'});
