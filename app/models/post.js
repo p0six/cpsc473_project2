@@ -4,6 +4,8 @@ export default DS.Model.extend({
   title: DS.attr('string'),
   downloadURL: DS.attr('string'),
   dateSubmitted: DS.attr('date'),
+  upScore: DS.attr('upScore'),
+  downScore: DS.attr('downScore'),
   score: DS.attr('number'), // calculated value (upvoters - downvoters)
   user: DS.belongsTo('user'),
   upvoters: DS.hasMany('user', {inverse: 'favorite_posts'}), // array of user id's

@@ -20,8 +20,9 @@
       <img src="{{model.downloadURL}}" alt="" class="img-responsive img-rounded"/>
       <br>
       <span class="">UP</span>
+      <small><i>{{model.upScore}}</i></small>
       <span class="">DOWN</span>
-      <small><i>{{model.score}}</i></small>
+      <small><i>{{model.downScore}}</i></small>
       <br>
       <h4>Comments:</h4>
       {{#each model.comments as |comment|}}
