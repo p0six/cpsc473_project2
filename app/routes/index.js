@@ -4,7 +4,7 @@ export default Route.extend({
   model() {
     return this.store.query('post', {
       orderBy: 'dateSubmitted',
-      limitToLast: 20
+      limitToLast: 15 
     });
   }
 });
