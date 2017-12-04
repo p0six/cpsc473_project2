@@ -41,7 +41,6 @@ export default Controller.extend({
     } else {
       return null;
     }
-<<<<<<< HEAD
   }.property('showNext','posts','nextIndex'),
   getVoteInfo:  function(model, itemTag) {
     var idTag = 'email';
@@ -83,11 +82,6 @@ export default Controller.extend({
     },
     postComment(postid,username) {
       // TODO: correct referential integrity - user
-=======
-  }.property('showNext', 'posts', 'nextIndex'),
-  actions: {
-    postComment(pid, uid) {
->>>>>>> master
       var self = this;
       self.store.findRecord('user', uid).then(function(user) {
         self.store.findRecord('post', pid).then(function(post) {

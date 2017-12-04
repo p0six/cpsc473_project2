@@ -1,10 +1,10 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   title: DS.attr('string'),
   downloadURL: DS.attr('string'),
   dateSubmitted: DS.attr('date'),
-<<<<<<< HEAD
   upVote: DS.attr('number'),
   downVote: DS.attr('number'),
   score: Ember.computed('upvoters', 'downvoters', function(){
@@ -12,9 +12,6 @@ export default DS.Model.extend({
     var dv = this.get('downvoters').content;
     return uv.length-dv.length;
   }), // calculated value (upvoters - downvoters)
-=======
-  score: DS.attr('number'), // calculated value (upvoters - downvoters)
->>>>>>> master
   user: DS.belongsTo('user'),
   upvoters: DS.hasMany('user', {
     inverse: 'favorite_posts'
