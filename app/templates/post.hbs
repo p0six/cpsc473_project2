@@ -23,10 +23,13 @@
         </center>
       </a>
       <br>
-      <span class="">upvote</span>
-      <span class="">downvote</span>
-      <small><i>{{model.post.score}} points</i></small>
-      <br>
+
+      <img src="/assets/images/up.png" {{action 'doUpVote' model.post}} style="cursor: pointer;"/>
+      <br/>
+      <i style="position:relative; left:25px;">{{model.post.score}}</i>
+      <br/>
+      <img src="/assets/images/down.png" {{action 'doDownVote' model.post}} style="cursor: pointer;"/>
+      <br/>
       <h4>Comments:</h4>
 
       {{#if session.isAuthenticated}}
