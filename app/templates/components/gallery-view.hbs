@@ -1,0 +1,11 @@
+<div id="imageInIndexContainer">
+  {{#each posts as |post index|}}
+    <div class="imageDivInIndexParent">
+      {{#link-to 'post' post.id (query-params myIndex=index posts=postIDlist)}}
+        <div class="imageDivInIndex" style={{index-image-background post.downloadURL}}>
+          <span class="imageInIndexText airstreamregular">{{post.title}}</span>
+        </div>
+      {{/link-to}}
+    </div>
+  {{/each}}
+</div>
