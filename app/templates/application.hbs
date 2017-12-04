@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="#"><b style="color:orange;text-align:center">ImgRepo</b></a>
+        {{#link-to "index"}}<a class="navbar-brand" href="#"><b style="color:orange;text-align:center">ImgRepo</b></a>{{/link-to}}
         {{#if session.isAuthenticated}}
           {{#link-to "user.edit"}}<a class="navbar-brand" href="#">Edit Profile</a>{{/link-to}}
           <!-- disabling until there is some actual functionality here...

@@ -17,7 +17,7 @@
         <small><i>{{model.dateSubmitted}}</i></small>
       </h4>
       <br>
-      <img src="{{model.downloadURL}}" alt="" class="img-responsive img-rounded"/>
+      <center><img src="{{model.downloadURL}}" alt="" class="img-responsive img-rounded"/></center>
       <br>
 
       <img src="/assets/images/up.png" {{action 'doUpVote' model}} style="cursor: pointer;"/>
@@ -28,6 +28,18 @@
       <br/>
 
       <h4>Comments:</h4>
+
+      {{#if session.isAuthenticated}}
+      <form {{action "postComment" model.id session.currentUser.email on="submit"}}>
+        <div class="form-group">
+            {{textarea value=newcomment
+              class="form-control" name="comment" required=true}}
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
+      </form>
+      {{/if}}
+
+
       {{#each model.comments as |comment|}}
         <div class="media">
           <!--NOTE: remove if there are no rofile images-->
@@ -36,8 +48,8 @@
             <img src="../../../public/assets/images/sasquatch_th.png" class="media-object" style="width:45px">
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{comment.user.displayName}}
-              <small><i>{{coment.dateSubmitted}}</i></small>
+            <h4 class="media-heading">{{comment.user}}
+              <small><i>{{comment.dateSubmitted}}</i></small>
             </h4>
             <p>{{comment.comment}}</p>
           </div>
