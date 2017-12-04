@@ -1,5 +1,4 @@
 import Controller from '@ember/controller';
-import Ember from 'ember';
 import sweetAlert from 'ember-sweetalert';
 
 export default Controller.extend({
@@ -62,6 +61,8 @@ export default Controller.extend({
   doVote : function(model, itemTag) {
     var info = this.getVoteInfo(model, itemTag);
 
+    //debugging
+    //if (true) {
     if (!info.hasVoted) {
       info.list.pushObject(info.user);
       model.save();
