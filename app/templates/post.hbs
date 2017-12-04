@@ -43,7 +43,7 @@
       {{#each model.comments as |comment|}}
         <div class="media">
           <div class="media-body">
-            <h4 class="media-heading">{{#link-to "user" session.currentUser.email}}{{comment.user}}{{/link-to}}
+            <h4 class="media-heading">{{#link-to "user" session.currentUser.email}}{{model.user.displayName}}{{/link-to}}
               <small><i>{{comment.dateSubmitted}}</i></small>
             </h4>
             <p>{{comment.comment}}</p>

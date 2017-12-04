@@ -7,7 +7,7 @@ export default Controller.extend({
   isSortedBy: function(){
     return this.get('modelDesc');
   }.property('modelAesc'),
-  sortedModel: Ember.computed.sort('model', 'isSortedBy'),
+  sortedModel: Ember.computed.sort('model.posts', 'isSortedBy'),
   postIDs: function(){
     var posts = this.get('sortedModel').map(function(item) {
       return item.id;
