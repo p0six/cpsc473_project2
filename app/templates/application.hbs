@@ -10,7 +10,8 @@
       </button>
         <a class="navbar-brand" href="#"><b style="color:orange;text-align:center">ImgRepo</b></a>
         {{#if session.isAuthenticated}}
-          {{#link-to "user.edit"}}<a class="navbar-brand" href="#">Edit Profile</a>{{/link-to}}
+          {{#link-to "user" session.currentUser.email}}<a class="navbar-brand" href="#">View Profile</a>{{/link-to}}
+          {{#link-to "user.edit"session.currentUser.email}}<a class="navbar-brand" href="#">Edit Profile</a>{{/link-to}}
           <!-- disabling until there is some actual functionality here...
           <a class="navbar-brand" href="#">Your Posts</a>
           -->

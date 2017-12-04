@@ -1,1 +1,4 @@
-{{outlet}}
+<button {{action 'isSortedByAesc'}} class="btn btn-primary">Hightest Voted</button>
+<button {{action 'isSortedByDesc'}} class="btn btn-primary">Most Recent</button>
+<p><br></p>
+{{gallery-view posts=sortedModel postIDlist=postIDs}}
