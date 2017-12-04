@@ -24,7 +24,6 @@ export default Controller.extend({
       this.set('isSortedBy', function() {
         return this.get('modelDesc');
       }.property('modelDesc'));
-    },
-    test() {}
+    }
   }
 });
