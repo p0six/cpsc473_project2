@@ -13,13 +13,17 @@
         </div>
 
         <div class="col-xs-10 col-sm-8">
-          <h1>{{model.post.title}}</h1>
-          <h4> by {{#link-to "user" model.post.user.email}}{{model.post.user.displayName}}{{/link-to}}
-            <small><i>{{model.post.dateSubmitted}}</i></small>
-          </h4>
-          <span class="">upvote</span>
-          <span class="">downvote</span>
-          <small><i>{{model.post.score}} points</i></small>
+          <div class="media">
+            <div class="media-body">
+              <h1>{{model.post.title}}</h1>
+              <h4> by {{#link-to "user" model.post.user.email}}{{model.post.user.displayName}}{{/link-to}}
+                <small><i>{{model.post.dateSubmitted}}</i></small>
+              </h4>
+              <span class="">upvote</span>
+              <span class="">downvote</span>
+              <small><i>{{model.post.score}} points</i></small>
+            </div>
+          </div>
         </div>
 
         <div class="col-xs-1 col-sm-2">
@@ -42,28 +46,30 @@
     </div>
 
     <div class="col-xs-4 col-md-5">
-      <h4>Comments:</h4>
+      <div class="container-fluid scroll">
+        <h4>Comments:</h4>
 
-      {{#if session.isAuthenticated}}
-        <form {{action "postComment" model.post.id session.currentUser.uid on="submit"}}>
-          <div class="form-group">
-            {{textarea value=model.comment.comment
-              class="form-control" name="comment" required=true}}
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
-        </form>
-      {{/if}}
+        {{#if session.isAuthenticated}}
+          <form {{action "postComment" model.post.id session.currentUser.uid on="submit"}}>
+            <div class="form-group">
+              {{textarea value=model.comment.comment
+                class="form-control" name="comment" required=true}}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
+          </form>
+        {{/if}}
 
-      {{#each model.comments as |comment|}}
-        <div class="media">
-          <div class="media-body">
-            <h4 class="media-heading">{{#link-to "user" comment.user.email}}{{comment.user.displayName}}{{/link-to}}
-              <small><i>{{comment.dateSubmitted}}</i></small>
-            </h4>
-            <p>{{comment.comment}}</p>
+        {{#each model.comments as |comment|}}
+          <div class="media">
+            <div class="media-body">
+              <h4 class="media-heading">{{#link-to "user" comment.user.email}}{{comment.user.displayName}}{{/link-to}}
+                <small><i>{{comment.dateSubmitted}}</i></small>
+              </h4>
+              <p>{{comment.comment}}</p>
+            </div>
           </div>
-        </div>
-      {{/each}}
+        {{/each}}
+      </div>
     </div>
   </div>
 </div>
