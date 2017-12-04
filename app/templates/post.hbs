@@ -42,13 +42,8 @@
 
       {{#each model.comments as |comment|}}
         <div class="media">
-          <!--NOTE: remove if there are no rofile images-->
-          <div class="media-left">
-              <!--TODO: GET USERPROFILE IMG-->
-            <img src="../../../public/assets/images/sasquatch_th.png" class="media-object" style="width:45px">
-          </div>
           <div class="media-body">
-            <h4 class="media-heading">{{comment.user}}
+            <h4 class="media-heading">{{#link-to "user" session.currentUser.email}}{{comment.user}}{{/link-to}}
               <small><i>{{comment.dateSubmitted}}</i></small>
             </h4>
             <p>{{comment.comment}}</p>

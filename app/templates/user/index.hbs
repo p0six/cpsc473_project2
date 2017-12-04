@@ -1,6 +1,7 @@
-<button {{action 'isSortedByAesc'}} class="btn btn-danger">Hightest Voted</button>
-<button {{action 'isSortedByDesc'}} class="btn btn-warning">Most Recent</button>
-
+<div class="form-group text-center">
+  <button {{action 'isSortedByAesc'}} class="btn btn-danger">Hightest Voted</button>
+  <button {{action 'isSortedByDesc'}} class="btn btn-warning">Most Recent</button>
+</div>
 <p><br></p>
 {{gallery-view posts=sortedModel postIDlist=postIDs}}
 {{outlet}}
