@@ -48,22 +48,10 @@ export default Controller.extend({
       console.log(this.get('posts').objectAt(this.get('myIndex')));
       console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
     },
-    doUpVote(model){
-      var tag = 'upVote';
-      this.model.incrementProperty(tag);
-      this.model.save();
-      //alert(this.get(tag));
-      //debugger;
-    },
-    doDownVote(model){
-      var tag = 'downVote';
-      this.model.incrementProperty(tag);
-      this.model.save();
-      //alert(this.get(tag));
-      //debugger;
-    },
     postComment(postid,username) {
+
       // TODO: correct referential integrity - user
+
       var self = this;
       this.store.findRecord('post', postid).then(function(post) {
         const comment = self.store.createRecord('comment', {
