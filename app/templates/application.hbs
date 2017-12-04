@@ -20,11 +20,11 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="navbar-form navbar-right">
           {{#if session.isAuthenticated}}
-            <button id="newPostButton" type="button" class="btn btn-primary" {{action "showNewPostModal" "New Post"}}>New Post</button>
-            <button id="signOutButon" type="button" class="btn btn-primary" {{action "logoutUser"}}>Logout {{session.currentUser.email}}</button>
+            <button id="newPostButton" type="button" class="btn" {{action "showNewPostModal" "New Post"}}>New Post</button>
+            <button id="signOutButon" type="button" class="btn" {{action "logoutUser"}}>Logout {{session.currentUser.email}}</button>
           {{else}}
-            <button id="loginButton" type="button" class="btn btn-primary" {{action "showLoginModal" "Login"}}>Login</button>
-            <button id="registerButton" type="button" class="btn btn-primary" {{action "showRegisterModal" "Registration"}}>Register</button>
+            <button id="loginButton" type="button" class="btn" {{action "showLoginModal" "Login"}}>Login</button>
+            <button id="registerButton" type="button" class="btn" {{action "showRegisterModal" "Registration"}}>Register</button>
           {{/if}}
         </div>
       </div>

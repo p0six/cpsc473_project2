@@ -1,5 +1,8 @@
-<button {{action 'isSortedByAesc'}} class="btn btn-primary">HOT!</button>
-<button {{action 'isSortedByDesc'}} class="btn btn-primary">NEW!</button>
+<div class="form-group text-center">
+  <button {{action 'isSortedByAesc'}} class="btn btn-danger">{{fa-icon "fire"}} HOT!</button>
+  <button {{action 'isSortedByDesc'}} class="btn btn-warning">New!</button>
+</div>
+
 
 <p><br></p>
 {{gallery-view posts=sortedModel postIDlist=postIDs}}

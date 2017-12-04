@@ -4,7 +4,7 @@
       <br><br>
       {{#if showPrevious}}
         {{#link-to 'post' prevPost (query-params myIndex=prevIndex posts=posts)}}
-           <button class="btn btn-primary">prev!</button>
+           <button class="btn btn-primary">{{fa-icon "chevron-left"}}</button>
         {{/link-to}}
       {{/if}}
       <br><br>
@@ -19,8 +19,8 @@
       <br>
       <img src="{{model.downloadURL}}" alt="" class="img-responsive img-rounded"/>
       <br>
-      <span class="">UP</span>
-      <span class="">DOWN</span>
+      <span class="">{{fa-icon "arrow-up"}}</span>
+      <span class="">{{fa-icon "arrow-down"}}</span>
       <small><i>{{model.score}}</i></small>
       <br>
       <h4>Comments:</h4>
@@ -44,7 +44,7 @@
       <br><br>
       {{#if showNext}}
         {{#link-to 'post' nextPost (query-params myIndex=nextIndex posts=posts)}}
-           <button class="btn btn-primary">next!</button>
+           <button class="btn btn-primary">{{fa-icon "chevron-right"}}</button>
         {{/link-to}}
       {{/if}}
       <br><br>
