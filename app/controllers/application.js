@@ -139,6 +139,8 @@ export default Controller.extend({
           downloadURL: self.get('downloadURL'),
           dateSubmitted: new Date(),
           score: 0,
+          upVote: 0,
+          downVote: 0,
           user: user
         });
 

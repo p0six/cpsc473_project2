@@ -46,6 +46,21 @@ export default Controller.extend({
       console.log(this.get('posts').objectAt(this.get('prevIndex')));
       console.log(this.get('posts').objectAt(this.get('myIndex')));
       console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
+    },
+
+    doUpVote(model){
+      var tag = 'upVote';
+      this.model.incrementProperty(tag);
+      this.model.save();
+      //alert(this.get(tag));
+      //debugger;
+    },
+    doDownVote(model){
+      var tag = 'downVote';
+      this.model.incrementProperty(tag);
+      this.model.save();
+      //alert(this.get(tag));
+      //debugger;
     }
   }
 
