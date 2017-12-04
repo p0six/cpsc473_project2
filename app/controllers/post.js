@@ -66,8 +66,6 @@ export default Controller.extend({
           });
     });
 
-
-
 // Alternative Tries to get user object
 
       // var s_user = this.get('store').findRecord('user', userid);
@@ -125,14 +123,6 @@ export default Controller.extend({
     // comment.save().then(function(myComment) {
     //   sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
     // });
-
-
-
-
-
-
-    },
-
+    }
   }
-
 });
