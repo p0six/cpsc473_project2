@@ -42,6 +42,31 @@ export default Controller.extend({
       return null;
     }
   }.property('showNext','posts','nextIndex'),
+  getVoteInfo:  function(model, itemTag) {
+    var idTag = 'email';
+    var user = model.get('user').content;
+    var userId = user.get(idTag);
+    var list = model.get(itemTag);
+    var hasVotedResult = false;
+
+    list.forEach(function(i){
+      var itemId = i.get(idTag);
+      if (itemId == userId) {
+        hasVotedResult = true;
+        return;
+      }
+    });
+
+    return {'user': user, 'userId': userId, 'list': list, 'hasVoted': hasVotedResult};
+  },
+  doVote : function(model, itemTag) {
+    var info = this.getVoteInfo(model, itemTag);
+
+    if (!info.hasVoted) {
+      info.list.pushObject(info.user);
+      model.save();
+    }
+  },
   actions: {
     test() {/*
       console.log(this.get('posts'));
@@ -50,31 +75,10 @@ export default Controller.extend({
       console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
     },
     doUpVote(model){
-      debugger;
-      var tag = 'upvoters';
-      var idTag = 'email';
-      var user = model.get('user').content;
-      var userId = user.get(idTag);
-      var list = model.get(tag);
-      list.pushObject(user);
-      list.forEach(function(i){
-        var itemId = i.get(idTag)
-        //console.log(i.email);
-      });
-      model.save();
-
-      /*var tag = 'upVote';
-      this.model.incrementProperty(tag);
-      this.model.save();*/
-      //alert(this.get(tag));
-      //debugger;
+      this.doVote(model, 'upvoters');
     },
     doDownVote(model){
-      var tag = 'downVote';
-      this.model.incrementProperty(tag);
-      this.model.save();
-      //alert(this.get(tag));
-      //debugger;
+      this.doVote(model, 'downvoters');
     },
     postComment(postid,username) {
       // TODO: correct referential integrity - user
