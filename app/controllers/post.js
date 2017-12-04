@@ -42,15 +42,7 @@ export default Controller.extend({
     }
   }.property('showNext', 'posts', 'nextIndex'),
   actions: {
-    test() {
-      /*
-            console.log(this.get('posts'));
-            console.log(this.get('posts').objectAt(this.get('prevIndex')));
-            console.log(this.get('posts').objectAt(this.get('myIndex')));
-            console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
-    },
-    //postCommentMike(pid, uid, email) { //  this method requires a modified comment model
-    postComment(pid, uid) { // this method
+    postComment(pid, uid) {
       var self = this;
       self.store.findRecord('user', uid).then(function(user) {
         self.store.findRecord('post', pid).then(function(post) {
@@ -79,11 +71,11 @@ export default Controller.extend({
                   'type': 'success',
                   'text': 'CommentID: ' + myComment.id
                 })
-              });
-            });
-          });
-        });
-      });
+              }); // end return
+            }); // end post.save
+          }); // end comment.save
+        }); // end findRecord(post)
+      }); // end findRecord(user)
     }
   }
 });

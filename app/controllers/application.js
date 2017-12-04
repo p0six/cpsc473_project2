@@ -52,9 +52,16 @@ export default Controller.extend({
         self.set('formPassword', '');
         cleanData(self);
         self.set('isShowingLoginModal', false);
-        sweetAlert({'title': 'Login Success!', 'type': 'success'});
+        sweetAlert({
+          'title': 'Login Success!',
+          'type': 'success'
+        });
       }).catch(function(error) {
-        sweetAlert({'title': 'Login Failure!', 'type': 'error', 'text': error.message});
+        sweetAlert({
+          'title': 'Login Failure!',
+          'type': 'error',
+          'text': error.message
+        });
       });
     },
     logoutUser() {
@@ -66,7 +73,7 @@ export default Controller.extend({
       // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#createUserWithEmailAndPassword
       const auth = this.get('firebaseApp').auth();
       let pass = this.get('formPassword');
-      auth.createUserWithEmailAndPassword(email,pass).then((userResponse) => {
+      auth.createUserWithEmailAndPassword(email, pass).then((userResponse) => {
         var self = this;
         const user = this.store.createRecord('user', {
           id: userResponse.uid,
@@ -85,9 +92,13 @@ export default Controller.extend({
             provider: 'password',
             email: email,
             password: self.formPassword
-          }).then (function() {
+          }).then(function() {
             cleanData(self);
-            sweetAlert({'title': 'Registration Success!', 'type': 'success', 'text': 'Welcome to ImgRepo!'});
+            sweetAlert({
+              'title': 'Registration Success!',
+              'type': 'success',
+              'text': 'Welcome to ImgRepo!'
+            });
             self.set('isShowingRegisterModal', false);
           });
         });
@@ -96,7 +107,11 @@ export default Controller.extend({
         // descriptive errors that allow a user to potentially brute force site
         // for valid logins...
         var errorMessage = error.message; // error.code also available
-        sweetAlert({'title': 'Registration Failure!', 'type': 'error', 'text': errorMessage});
+        sweetAlert({
+          'title': 'Registration Failure!',
+          'type': 'error',
+          'text': errorMessage
+        });
       });
     },
     cancelCreateUser() {
@@ -123,7 +138,11 @@ export default Controller.extend({
             break;
         }
       }, (error) => {
-        sweetAlert({'title': 'Upload Failure!', 'type': 'error', 'text': error.message});
+        sweetAlert({
+          'title': 'Upload Failure!',
+          'type': 'error',
+          'text': error.message
+        });
       }, () => {
         this.set('downloadURL', uploadTask.snapshot.downloadURL);
         this.set('progress', false);
@@ -152,7 +171,11 @@ export default Controller.extend({
             self.set('downloadURL', false);
             self.set('uploadRef', false);
             self.set('isShowingNewPostModal', false);
-            sweetAlert({'title': 'Posted!', 'type': 'success', 'text': 'PostID: ' + myPost.id});
+            sweetAlert({
+              'title': 'Posted!',
+              'type': 'success',
+              'text': 'PostID: ' + myPost.id
+            });
           });
         });
       });
@@ -165,7 +188,11 @@ export default Controller.extend({
         window.firebase.storage().ref().child(uploadRef).delete().then(function() {
           self.set('uploadRef', false);
         }).catch(error => {
-          sweetAlert({'title': 'Error deleting temp image!', 'type': 'error', 'text': error.message});
+          sweetAlert({
+            'title': 'Error deleting temp image!',
+            'type': 'error',
+            'text': error.message
+          });
         });
       }
       cleanData(this);
