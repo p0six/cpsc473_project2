@@ -2,6 +2,16 @@ import Route from '@ember/routing/route';
 import Ember from 'ember';
 
 export default Route.extend({
+  queryParams:{
+    myIndex:{
+      refreshModel: true,
+      replace: true
+    },
+    posts:{
+      refreshModel: true,
+      replace: true
+    }
+  },
   model(params) {
     return Ember.RSVP.hash({
       post: this.store.findRecord('post', params.post_id),
@@ -13,5 +23,13 @@ export default Route.extend({
         return myComments;
       })
     });
+  },
+  beforeModel(){
+    return this.store.query('comment', {
+      orderBy: 'dateSubmitted'/*,
+      limitToLast: 15 */
+    });
+  },
+  afterModel(){
   }
 });

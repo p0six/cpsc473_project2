@@ -4,7 +4,7 @@
       <br><br>
       {{#if showPrevious}}
         {{#link-to 'post' prevPost (query-params myIndex=prevIndex posts=posts)}}
-          <button class="btn btn-primary">prev!</button>
+           <button class="btn btn-primary">previous</button>
         {{/link-to}}
       {{/if}}
       <br><br>
@@ -13,15 +13,19 @@
       <br>
       <h1>{{model.post.title}}</h1>
       <br>
-      <h4> by {{model.user.displayName}}
+      <h4> by {{#link-to "user" model.post.user.email}}{{model.post.user.displayName}}{{/link-to}}
         <small><i>{{model.post.dateSubmitted}}</i></small>
       </h4>
       <br>
-      <center><img src="{{model.post.downloadURL}}" alt="" class="img-responsive img-rounded" /></center>
+      <a href={{model.post.downloadURL}}>
+        <center>
+          <img src="{{model.post.downloadURL}}" alt="" class="img-responsive img-rounded"/>
+        </center>
+      </a>
       <br>
-      <span class="">UP</span>
-      <span class="">DOWN</span>
-      <small><i>{{model.post.score}}</i></small>
+      <span class="">upvote</span>
+      <span class="">downvote</span>
+      <small><i>{{model.post.score}} points</i></small>
       <br>
       <h4>Comments:</h4>
 
@@ -37,14 +41,8 @@
 
       {{#each model.comments as |comment|}}
         <div class="media">
-          <!--NOTE: remove if there are no profile images-->
-          <!--TODO: GET USERPROFILE IMG-->
-          <!-- <div class="media-left">
-            <img src="../../../public/assets/images/sasquatch_th.png" class="media-object" style="width:45px">
-          </div>-->
           <div class="media-body">
-            <h4 class="media-heading">{{comment.user.email}}
-              <!-- TODO: need to make comment.username a linkto to the user profile -->
+            <h4 class="media-heading">{{#link-to "user" comment.user.email}}{{comment.user.displayName}}{{/link-to}}
               <small><i>{{comment.dateSubmitted}}</i></small>
             </h4>
             <p>{{comment.comment}}</p>
@@ -56,7 +54,7 @@
       <br><br>
       {{#if showNext}}
         {{#link-to 'post' nextPost (query-params myIndex=nextIndex posts=posts)}}
-          <button class="btn btn-primary">next!</button>
+           <button class="btn btn-primary">next</button>
         {{/link-to}}
       {{/if}}
       <br><br>
