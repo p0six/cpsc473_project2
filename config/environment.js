@@ -18,12 +18,12 @@ module.exports = function(environment) {
       // when it is created
     },
     firebase: {
-     apiKey: 'AIzaSyBzl9X8n19ZA-zOvmcj4v4lh5vnGxNV3bo',
-     authDomain: 'imghost-17e95.firebaseapp.com',
-     databaseURL: 'https://imghost-17e95.firebaseio.com',
-     storageBucket: 'imghost-17e95.appspot.com',
-     projectId: 'imghost-17e95',
-     messagingSenderId: '650067384567'
+      apiKey: 'AIzaSyBzl9X8n19ZA-zOvmcj4v4lh5vnGxNV3bo',
+      authDomain: 'imghost-17e95.firebaseapp.com',
+      databaseURL: 'https://imghost-17e95.firebaseio.com',
+      storageBucket: 'imghost-17e95.appspot.com',
+      projectId: 'imghost-17e95',
+      messagingSenderId: '650067384567'
     //apiKey: "AIzaSyDUX1blt7cqokMcp9TRoVBnk-gfSRunlTs",
     //authDomain: "test-9aa99.firebaseapp.com",
     //databaseURL: "https://test-9aa99.firebaseio.com",

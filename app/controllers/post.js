@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import Ember from 'ember';
+import sweetAlert from 'ember-sweetalert';
 
 export default Controller.extend({
   queryParams: ['myIndex', 'posts'],
@@ -48,7 +49,6 @@ export default Controller.extend({
       console.log(this.get('posts').objectAt(this.get('myIndex')));
       console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
     },
-
     doUpVote(model){
       debugger;
       var tag = 'upvoters';
@@ -75,7 +75,80 @@ export default Controller.extend({
       this.model.save();
       //alert(this.get(tag));
       //debugger;
+    },
+    postComment(postid,username) {
+      // TODO: correct referential integrity - user
+      var self = this;
+      this.store.findRecord('post', postid).then(function(post) {
+        const comment = self.store.createRecord('comment', {
+          comment: self.get('newcomment'),
+          post: post,
+          dateSubmitted: new Date(),
+          user: username
+        });
+          comment.save().then(function(myComment) {
+            self.set('newcomment', '');
+            sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
+          });
+    });
+
+// Alternative Tries to get user object
+
+      // var s_user = this.get('store').findRecord('user', userid);
+      // var s_post = this.get('store').findRecord('post', postid);
+      //
+      // const comment = self.store.createRecord('comment', {
+      //   comment: self.get('newcomment'),
+      //   post: s_post,
+      //   dateSubmitted: new Date(),
+      //   user: s_user
+      // });
+      //
+      // comment.save().then(function(myComment) {
+      //   sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
+      // });
+
+
+    // var s_user = this.store.query('user', {
+    //           filter: {
+    //             uid: userid
+    //           }
+    //         }).then(function(users) {
+    //           return users;
+    // });
+    //
+    // var s_post = this.store.query('post', {
+    //           filter: {
+    //             id: postid
+    //           }
+    //         }).then(function(posts) {
+    //           return posts;
+    // });
+    //
+    //
+    // const comment = self.store.createRecord('comment', {
+    //   comment: self.get('newcomment'),
+    //   post: s_post,
+    //   dateSubmitted: new Date(),
+    //   user: s_user
+    // });
+    //
+    // comment.save().then(function(myComment) {
+    //   sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
+    // });
+
+
+    // const single_post = this.store.findRecord('post', postid);
+    // const single_user = this.store.findRecord('user', userid);
+    // const comment = self.store.createRecord('comment', {
+    //   comment: self.get('newcomment'),
+    //   post: single_post,
+    //   dateSubmitted: new Date(),
+    //   user: single_user
+    // });
+    // comment.save().then(function(myComment) {
+    //   sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
+    // });
     }
   }
-
 });
