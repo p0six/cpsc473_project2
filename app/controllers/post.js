@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import Ember from 'ember';
 
 export default Controller.extend({
   queryParams: ['myIndex', 'posts'],
@@ -49,9 +50,22 @@ export default Controller.extend({
     },
 
     doUpVote(model){
-      var tag = 'upVote';
+      debugger;
+      var tag = 'upvoters';
+      var idTag = 'email';
+      var user = model.get('user').content;
+      var userId = user.get(idTag);
+      var list = model.get(tag);
+      list.pushObject(user);
+      list.forEach(function(i){
+        var itemId = i.get(idTag)
+        //console.log(i.email);
+      });
+      model.save();
+
+      /*var tag = 'upVote';
       this.model.incrementProperty(tag);
-      this.model.save();
+      this.model.save();*/
       //alert(this.get(tag));
       //debugger;
     },
