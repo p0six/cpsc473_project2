@@ -5,124 +5,77 @@ export default Controller.extend({
   queryParams: ['myIndex', 'posts'],
   myIndex: 0,
   posts: [],
-  prevIndex: function(){
-    return this.get('myIndex')-1;
+  prevIndex: function() {
+    return this.get('myIndex') - 1;
   }.property('myIndex'),
-  nextIndex: function(){
-    return this.get('myIndex')+1;
+  nextIndex: function() {
+    return this.get('myIndex') + 1;
   }.property('myIndex'),
-  showPrevious: function (){
-    if(this.get('prevIndex')>-1){
+  showPrevious: function() {
+    if (this.get('prevIndex') > -1) {
       return true;
       //console.log(this.get('posts').objectAt(this.get('prevIndex')));
-    }else{
+    } else {
       return false;
     }
   }.property('prevIndex'),
-  showNext: function (){
-    if(this.get('nextIndex') < this.get('posts').get('length')){
+  showNext: function() {
+    if (this.get('nextIndex') < this.get('posts').get('length')) {
       return true;
       //console.log(this.get('posts').objectAt(this.get('prevIndex')));
-    }else{
+    } else {
       return false;
     }
   }.property('nextIndex', 'posts'),
-  prevPost: function(){
-    if(this.get('showPrevious')){
-        return this.get('posts').objectAt(this.get('prevIndex'));
-    }else {
+  prevPost: function() {
+    if (this.get('showPrevious')) {
+      return this.get('posts').objectAt(this.get('prevIndex'));
+    } else {
       return null;
     }
-  }.property('showPrevious','posts','prevIndex'),
-  nextPost: function(){
-    if(this.get('showNext')){
-        return this.get('posts').objectAt(this.get('nextIndex'));
-    }else {
+  }.property('showPrevious', 'posts', 'prevIndex'),
+  nextPost: function() {
+    if (this.get('showNext')) {
+      return this.get('posts').objectAt(this.get('nextIndex'));
+    } else {
       return null;
     }
-  }.property('showNext','posts','nextIndex'),
+  }.property('showNext', 'posts', 'nextIndex'),
   actions: {
-    test() {/*
-      console.log(this.get('posts'));
-      console.log(this.get('posts').objectAt(this.get('prevIndex')));
-      console.log(this.get('posts').objectAt(this.get('myIndex')));
-      console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
-    },
-    postComment(postid,username) {
-
-      // TODO: correct referential integrity - user
-
+    postComment(pid, uid) {
       var self = this;
-      this.store.findRecord('post', postid).then(function(post) {
-        const comment = self.store.createRecord('comment', {
-          comment: self.get('newcomment'),
-          post: post,
-          dateSubmitted: new Date(),
-          user: username
-        });
-          comment.save().then(function(myComment) {
-            self.set('newcomment', '');
-            sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
+      self.store.findRecord('user', uid).then(function(user) {
+        self.store.findRecord('post', pid).then(function(post) {
+          const comment = self.store.createRecord('comment', {
+            user: user,
+            post: post,
+            comment: self.get('model.comment.comment'),
+            dateSubmitted: new Date(),
+            score: 1
           });
-    });
 
-// Alternative Tries to get user object
+          user.get('comments').then(function(comments) {
+            comments.addObject(comment);
+          });
 
-      // var s_user = this.get('store').findRecord('user', userid);
-      // var s_post = this.get('store').findRecord('post', postid);
-      //
-      // const comment = self.store.createRecord('comment', {
-      //   comment: self.get('newcomment'),
-      //   post: s_post,
-      //   dateSubmitted: new Date(),
-      //   user: s_user
-      // });
-      //
-      // comment.save().then(function(myComment) {
-      //   sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
-      // });
+          post.get('comments').then(function(comments) {
+            comments.addObject(comment);
+          });
 
-
-    // var s_user = this.store.query('user', {
-    //           filter: {
-    //             uid: userid
-    //           }
-    //         }).then(function(users) {
-    //           return users;
-    // });
-    //
-    // var s_post = this.store.query('post', {
-    //           filter: {
-    //             id: postid
-    //           }
-    //         }).then(function(posts) {
-    //           return posts;
-    // });
-    //
-    //
-    // const comment = self.store.createRecord('comment', {
-    //   comment: self.get('newcomment'),
-    //   post: s_post,
-    //   dateSubmitted: new Date(),
-    //   user: s_user
-    // });
-    //
-    // comment.save().then(function(myComment) {
-    //   sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
-    // });
-
-
-    // const single_post = this.store.findRecord('post', postid);
-    // const single_user = this.store.findRecord('user', userid);
-    // const comment = self.store.createRecord('comment', {
-    //   comment: self.get('newcomment'),
-    //   post: single_post,
-    //   dateSubmitted: new Date(),
-    //   user: single_user
-    // });
-    // comment.save().then(function(myComment) {
-    //   sweetAlert({'title': 'Comment Posted!', 'type': 'success', 'text': 'CommentID: ' + myComment.id});
-    // });
+          comment.save().then(function(myComment) {
+            post.save().then(function() {
+              return user.save().then(function() {
+                // TODO: need to refresh the comment model to get a new comment object...
+                sweetAlert({
+                  'title': 'Comment Posted!',
+                  'type': 'success',
+                  'text': 'CommentID: ' + myComment.id
+                })
+              }); // end return
+            }); // end post.save
+          }); // end comment.save
+        }); // end findRecord(post)
+      }); // end findRecord(user)
     }
   }
 });

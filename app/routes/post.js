@@ -12,8 +12,17 @@ export default Route.extend({
       replace: true
     }
   },
-  model(params){
-       return this.store.findRecord('post', params.post_id);
+  model(params) {
+    return Ember.RSVP.hash({
+      post: this.store.findRecord('post', params.post_id),
+      comment: this.store.createRecord('comment'),
+      comments: this.store.query('comment', {
+        orderBy: 'post',
+        equalTo: params.post_id
+      }).then(function(myComments) {
+        return myComments;
+      })
+    });
   },
   beforeModel(){
     return this.store.query('comment', {
@@ -21,9 +30,6 @@ export default Route.extend({
       limitToLast: 15 */
     });
   },
-  afterModel(){
-    return Ember.RSVP.hash({
-      comment: this.store.createRecord('comment')
-  })
-}
+  afterModel(){  
+  }
 });

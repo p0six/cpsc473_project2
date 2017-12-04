@@ -11,39 +11,38 @@
     </div>
     <div class="col-xs-10 col-sm-8 col-md-6">
       <br>
-      <h1>{{model.title}}</h1>
+      <h1>{{model.post.title}}</h1>
       <br>
       <h4> by {{model.user.displayName}}
-        <small><i>{{model.dateSubmitted}}</i></small>
+        <small><i>{{model.post.dateSubmitted}}</i></small>
       </h4>
       <br>
-      <a href={{model.downloadURL}}>
+      <a href={{model.post.downloadURL}}>
         <center>
-          <img src="{{model.downloadURL}}" alt="" class="img-responsive img-rounded"/>
+          <img src="{{model.post.downloadURL}}" alt="" class="img-responsive img-rounded"/>
         </center>
       </a>
       <br>
       <span class="">{{fa-icon "arrow-up"}}</span>
       <span class="">{{fa-icon "arrow-down"}}</span>
-      <small><i>{{model.score}}</i></small>
+      <small><i>{{model.post.score}}</i></small>
       <br>
       <h4>Comments:</h4>
 
       {{#if session.isAuthenticated}}
-      <form {{action "postComment" model.id session.currentUser.email on="submit"}}>
-        <div class="form-group">
-            {{textarea value=newcomment
+        <form {{action "postComment" model.post.id session.currentUser.uid on="submit"}}>
+          <div class="form-group">
+            {{textarea value=model.comment.comment
               class="form-control" name="comment" required=true}}
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
-      </form>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
+        </form>
       {{/if}}
-
 
       {{#each model.comments as |comment|}}
         <div class="media">
           <div class="media-body">
-            <h4 class="media-heading">{{#link-to "user" session.currentUser.email}}{{model.user.displayName}}{{/link-to}}
+            <h4 class="media-heading">{{#link-to "user" comment.user.email}}{{comment.user.displayName}}{{/link-to}}
               <small><i>{{comment.dateSubmitted}}</i></small>
             </h4>
             <p>{{comment.comment}}</p>
