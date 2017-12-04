@@ -40,49 +40,9 @@ export default Controller.extend({
     } else {
       return null;
     }
-  }.property('showNext','posts','nextIndex'),
-  getVoteInfo:  function(model, itemTag) {
-    var idTag = 'email';
-    var user = model.get('user').content;
-    var userId = user.get(idTag);
-    var list = model.get(itemTag);
-    var hasVotedResult = false;
-
-    list.forEach(function(i){
-      var itemId = i.get(idTag);
-      if (itemId == userId) {
-        hasVotedResult = true;
-        return;
-      }
-    });
-
-    return {'user': user, 'userId': userId, 'list': list, 'hasVoted': hasVotedResult};
-  },
-  doVote : function(model, itemTag) {
-    var info = this.getVoteInfo(model, itemTag);
-
-    //debugging
-    //if (true) {
-    if (!info.hasVoted) {
-      info.list.pushObject(info.user);
-      model.save();
-    }
-  },
+  }.property('showNext', 'posts', 'nextIndex'),
   actions: {
-    test() {/*
-      console.log(this.get('posts'));
-      console.log(this.get('posts').objectAt(this.get('prevIndex')));
-      console.log(this.get('posts').objectAt(this.get('myIndex')));
-      console.log(this.get('posts').objectAt(this.get('nextIndex')));*/
-    },
-    doUpVote(model){
-      this.doVote(model, 'upvoters');
-    },
-    doDownVote(model){
-      this.doVote(model, 'downvoters');
-    },
-    postComment(postid,username) {
-      // TODO: correct referential integrity - user
+    postComment(pid, uid) {
       var self = this;
       self.store.findRecord('user', uid).then(function(user) {
         self.store.findRecord('post', pid).then(function(post) {
