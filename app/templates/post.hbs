@@ -59,7 +59,7 @@
           </form>
         {{/if}}
 
-        {{#each model.comments as |comment|}}
+        {{#each sortedComments as |comment|}}
           <div class="media">
             <div class="media-body">
               <h4 class="media-heading">{{#link-to "user" comment.user.email}}{{comment.user.displayName}}{{/link-to}}
