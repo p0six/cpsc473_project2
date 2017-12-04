@@ -30,6 +30,6 @@ export default Route.extend({
       limitToLast: 15 */
     });
   },
-  afterModel(){  
+  afterModel(){
   }
 });

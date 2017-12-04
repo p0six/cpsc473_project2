@@ -13,7 +13,7 @@
       <br>
       <h1>{{model.post.title}}</h1>
       <br>
-      <h4> by {{model.user.displayName}}
+      <h4> by {{#link-to "user" model.post.user.email}}{{model.post.user.displayName}}{{/link-to}}
         <small><i>{{model.post.dateSubmitted}}</i></small>
       </h4>
       <br>
