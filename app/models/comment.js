@@ -1,9 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-//  TODO: correct referential integrity - user
-  // user: DS.belongsTo('user'),
-  user: DS.attr('string'),
+  user: DS.belongsTo('user'),
   post: DS.belongsTo('post'),
   comment: DS.attr('string'),
   dateSubmitted: DS.attr('date'),

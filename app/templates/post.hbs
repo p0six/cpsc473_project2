@@ -11,40 +11,40 @@
     </div>
     <div class="col-xs-10 col-sm-8 col-md-6">
       <br>
-      <h1>{{model.title}}</h1>
+      <h1>{{model.post.title}}</h1>
       <br>
       <h4> by {{model.user.displayName}}
-        <small><i>{{model.dateSubmitted}}</i></small>
+        <small><i>{{model.post.dateSubmitted}}</i></small>
       </h4>
       <br>
-      <center><img src="{{model.downloadURL}}" alt="" class="img-responsive img-rounded"/></center>
+      <center><img src="{{model.post.downloadURL}}" alt="" class="img-responsive img-rounded"/></center>
       <br>
       <span class="">UP</span>
       <span class="">DOWN</span>
-      <small><i>{{model.score}}</i></small>
+      <small><i>{{model.post.score}}</i></small>
       <br>
       <h4>Comments:</h4>
 
       {{#if session.isAuthenticated}}
-      <form {{action "postComment" model.id session.currentUser.email on="submit"}}>
+      <form {{action "postComment" model.post.id session.currentUser.uid on="submit"}}>
         <div class="form-group">
-            {{textarea value=newcomment
+            {{textarea value=model.comment.comment
               class="form-control" name="comment" required=true}}
         </div>
         <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
       </form>
       {{/if}}
 
-
       {{#each model.comments as |comment|}}
         <div class="media">
-          <!--NOTE: remove if there are no rofile images-->
-          <div class="media-left">
-              <!--TODO: GET USERPROFILE IMG-->
+          <!--NOTE: remove if there are no profile images-->
+          <!--TODO: GET USERPROFILE IMG-->
+          <!-- <div class="media-left">
             <img src="../../../public/assets/images/sasquatch_th.png" class="media-object" style="width:45px">
-          </div>
+          </div>-->
           <div class="media-body">
-            <h4 class="media-heading">{{comment.user}}
+            <h4 class="media-heading">{{comment.user.email}}
+              <!-- need to make comment.username a linkto to the user profile -->
               <small><i>{{comment.dateSubmitted}}</i></small>
             </h4>
             <p>{{comment.comment}}</p>
