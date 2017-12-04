@@ -1,7 +1,4 @@
 import Controller from '@ember/controller';
-import Ember from 'ember';
-
-import firebase from 'firebase';
 import sweetAlert from 'ember-sweetalert';
 
 export default Controller.extend({
