@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import sweetAlert from 'ember-sweetalert';
+import Ember from 'ember';
 
 function cleanData(self) {
   self.get('model.comment').deleteRecord();
