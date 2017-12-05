@@ -36,28 +36,33 @@
           <br><br>
         </div>
 
+        <div class="container-fluid">
+          <a href={{model.post.downloadURL}}>
+            <center>
+              <img src="{{model.post.downloadURL}}" alt="" class="img-responsive img-rounded"/>
+            </center>
+          </a>
+        </div>
 
-        <a href={{model.post.downloadURL}}>
-          <center>
-            <img src="{{model.post.downloadURL}}" alt="" class="img-responsive img-rounded"/>
-          </center>
-        </a>
       </div>
     </div>
 
     <div class="col-xs-4 col-md-5">
-      <div class="container-fluid scroll">
-        <h4>Comments:</h4>
 
-        {{#if session.isAuthenticated}}
-          <form {{action "postComment" model.post.id session.currentUser.uid on="submit"}}>
-            <div class="form-group">
-              {{textarea value=model.comment.comment
-                class="form-control" name="comment" required=true}}
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
-          </form>
-        {{/if}}
+      {{#if session.isAuthenticated}}
+      <div class="container-fluid">
+                <h4>Comments:</h4>
+        <form {{action "postComment" model.post.id session.currentUser.uid on="submit"}}>
+          <div class="form-group">
+            {{textarea value=model.comment.comment
+              class="form-control" name="comment" required=true}}
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Post Comment</button>
+        </form>
+        <br>
+      </div>
+      {{/if}}
+      <div class="container-fluid scroll">
 
         {{#each sortedComments as |comment|}}
           <div class="media">
