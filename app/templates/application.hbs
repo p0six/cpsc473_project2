@@ -84,10 +84,6 @@
       <div id="postSubmissionForm">
         <center><h1 style="color:black;font-family:Cambria;">Create Post</h1></center>
         <form {{action "createPost" session.currentUser.uid on="submit"}}>
-          <!--<div class="form-group">
-            {{input value=model.post.title type="text" class="form-control"
-              name="title" required=true placeholder="Post Title"}}
-          </div>-->
           <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
           <!-- is there a way to get drop/drop working for uploading images -->
           <div class="form-group">
