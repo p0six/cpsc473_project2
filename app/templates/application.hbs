@@ -34,13 +34,15 @@
 <div class="container">
   {{#if isShowingLoginModal}}
     {{#modal-dialog translucentOverlay=true close='closeLoginModal' }}
-      <h1>{{modalMessage}}</h1>
+      <center><h1 style="color:black;font-family:Cambria;">{{modalMessage}}</h1></center>
       <form {{action "loginUser" on="submit"}}>
         <div class="form-group">
-          <label for="email">email:</label> {{input value=formEmail
-            type="text" class="form-control" name="email" required=true}}
-          <label for="password">Password:</label> {{input value=formPassword
-            type="password" class="form-control" name="password" required=true}}
+          {{input value=formEmail
+            type="text" class="form-control" name="email" required=true placeholder="Email"}}
+            <br/>
+          {{input value=formPassword
+            type="password" class="form-control" name="password" required=true placeholder="Password"}}
+            <br/>
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </div>
       </form>
@@ -48,21 +50,27 @@
   {{/if}}
   {{#if isShowingRegisterModal}}
     {{#modal-dialog translucentOverlay=true close='closeRegisterModal' }}
-      <h1>{{modalMessage}}</h1>
+      <center><h1 style="color:black;font-family:Cambria;">{{modalMessage}}</h1></center>
       <form {{action "createUser" model.user.email on="submit"}}>
         <div class="form-group">
-          <label for="displayName">Display Name:</label> {{input value=model.user.displayName
-            type="text" class="form-control" name="displayName" required=true}}
-          <label for="email">email:</label> {{input value=model.user.email
-            type="text" class="form-control" name="email" required=true}}
-          <label for="password">Password:</label> {{input value=formPassword
-            type="password" class="form-control" name="password" required=true}}
-          <label for="firstName">First Name:</label> {{input value=model.user.firstName
-            type="text" class="form-control" name="firstName" required=true}}
-          <label for="lastName">Last Name:</label> {{input value=model.user.lastName
-            type="text" class="form-control" name="lastName" required=true}}
-          <label for="bio">Bio - Tell us about yourself:</label> {{input value=model.user.bio
-            type="text" class="form-control" name="bio" required=true}}
+          {{input value=model.user.displayName
+            type="text" class="form-control" name="displayName" required=true placeholder="Display Name"}}
+            <br/>
+          {{input value=model.user.email
+            type="text" class="form-control" name="email" required=true placeholder="Email"}}
+            <br/>
+          {{input value=formPassword
+            type="password" class="form-control" name="password" required=true placeholder="Password"}}
+            <br/>
+          {{input value=model.user.firstName
+            type="text" class="form-control" name="firstName" required=true placeholder="First Name"}}
+            <br/>
+          {{input value=model.user.lastName
+            type="text" class="form-control" name="lastName" required=true placeholder="Last Name"}}
+            <br/>
+          {{input value=model.user.bio
+            type="text" class="form-control" name="bio" required=true placeholder="Bio-Tell About Yourself"}}
+            <br/>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Create</button>
         <button {{action 'cancelCreateUser'}} class="btn btn-link btn-block">Cancel</button>
@@ -72,6 +80,7 @@
   {{#if isShowingNewPostModal}}
     {{#modal-dialog translucentOverlay=true close='closeNewPostModal' }}
       <div id="postSubmissionForm">
+        <center><h1 style="color:black;font-family:Cambria;">Create Post</h1></center>
         <form {{action "createPost" session.currentUser.uid on="submit"}}>
           <div class="form-group">
             {{input value=model.post.title type="text" class="form-control"
