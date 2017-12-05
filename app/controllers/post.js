@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import sweetAlert from 'ember-sweetalert';
+//import sweetAlert from 'ember-sweetalert';
 import Ember from 'ember';
 
 function cleanData(self) {
@@ -70,7 +70,8 @@ export default Controller.extend({
             comments.addObject(comment);
           });
 
-          comment.save().then(function(myComment) {
+          //comment.save().then(function(myComment) {
+          comment.save().then(function() {
             post.save().then(function() {
               return user.save().then(function() {
                 // TODO: need to refresh the comment model to get a new comment object...
