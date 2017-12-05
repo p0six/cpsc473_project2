@@ -75,11 +75,11 @@ export default Controller.extend({
               return user.save().then(function() {
                 // TODO: need to refresh the comment model to get a new comment object...
                 cleanData(self);
-                sweetAlert({
+                /*sweetAlert({
                   'title': 'Comment Posted!',
                   'type': 'success',
                   'text': 'CommentID: ' + myComment.id
-                })
+                })*/
               }); // end return
             }); // end post.save
           }); // end comment.save
