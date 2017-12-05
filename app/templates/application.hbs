@@ -12,9 +12,6 @@
         {{#if session.isAuthenticated}}
           {{#link-to "user" session.currentUser.email}}<a class="navbar-brand" href="#">View Profile</a>{{/link-to}}
           {{#link-to "user.edit"session.currentUser.email}}<a class="navbar-brand" href="#">Edit Profile</a>{{/link-to}}
-          <!-- disabling until there is some actual functionality here...
-          <a class="navbar-brand" href="#">Your Posts</a>
-          -->
         {{/if}}
 
       <a class="navbar-brand" href="assets/Frequently_Asked_Questions.pdf" target="_blank">FAQ</a>
