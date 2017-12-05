@@ -1,10 +1,18 @@
 import Controller from '@ember/controller';
 import sweetAlert from 'ember-sweetalert';
+import Ember from 'ember';
+
+function cleanData(self) {
+  self.get('model.comment').deleteRecord();
+  self.send('refreshModel');
+}
 
 export default Controller.extend({
   queryParams: ['myIndex', 'posts'],
   myIndex: 0,
   posts: [],
+  modelDesc: ['dateSubmitted:desc'],
+  sortedComments: Ember.computed.sort('model.comments', 'modelDesc'),
   prevIndex: function() {
     return this.get('myIndex') - 1;
   }.property('myIndex'),
@@ -66,6 +74,7 @@ export default Controller.extend({
             post.save().then(function() {
               return user.save().then(function() {
                 // TODO: need to refresh the comment model to get a new comment object...
+                cleanData(self);
                 sweetAlert({
                   'title': 'Comment Posted!',
                   'type': 'success',

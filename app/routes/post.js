@@ -30,6 +30,9 @@ export default Route.extend({
       limitToLast: 15 */
     });
   },
-  afterModel(){
+  actions: {
+    refreshModel() { // took a while to figure this one out :D
+      this.refresh();
+    }
   }
 });

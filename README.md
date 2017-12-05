@@ -1,4 +1,4 @@
-### To view a live copy of the application... click [here](https://imghost-17e95.firebaseapp.com/)
+### To view a live copy of the application... click [here](https://img.awwsheezy.com/)
 
 ## TO RUN THE application
 
