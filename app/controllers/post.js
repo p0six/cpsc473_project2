@@ -10,6 +10,8 @@ export default Controller.extend({
   queryParams: ['myIndex', 'posts'],
   myIndex: 0,
   posts: [],
+  modelDesc: ['dateSubmitted:desc'],
+  sortedComments: Ember.computed.sort('model.comments', 'modelDesc'),
   prevIndex: function() {
     return this.get('myIndex') - 1;
   }.property('myIndex'),
