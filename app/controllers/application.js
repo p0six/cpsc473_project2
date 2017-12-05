@@ -65,7 +65,7 @@ export default Controller.extend({
       });
     },
     logoutUser() {
-      cleanData(this);
+      //cleanData(this);
       this.get('session').close();
       this.transitionToRoute('index');
     },
