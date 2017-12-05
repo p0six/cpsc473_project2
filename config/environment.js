@@ -24,12 +24,12 @@ module.exports = function(environment) {
       storageBucket: 'imghost-17e95.appspot.com',
       projectId: 'imghost-17e95',
       messagingSenderId: '650067384567'
-    //apiKey: "AIzaSyDUX1blt7cqokMcp9TRoVBnk-gfSRunlTs",
-    //authDomain: "test-9aa99.firebaseapp.com",
-    //databaseURL: "https://test-9aa99.firebaseio.com",
-    //projectId: "test-9aa99",
-    //storageBucket: "test-9aa99.appspot.com",
-    //messagingSenderId: "66285183660"
+    // apiKey: "AIzaSyDUX1blt7cqokMcp9TRoVBnk-gfSRunlTs",
+    // authDomain: "test-9aa99.firebaseapp.com",
+    // databaseURL: "https://test-9aa99.firebaseio.com",
+    // projectId: "test-9aa99",
+    // storageBucket: "test-9aa99.appspot.com",
+    // messagingSenderId: "66285183660"
     },
     torii: {
       sessionServiceName: 'session'

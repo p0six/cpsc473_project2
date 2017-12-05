@@ -67,6 +67,10 @@ export default Controller.extend({
     logoutUser() {
       //cleanData(this);
       this.get('session').close();
+      sweetAlert({
+        'title': 'Successfully Logged Out!',
+        'type': 'success'
+      });
       this.transitionToRoute('index');
     },
     createUser(email) {
