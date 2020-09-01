@@ -1,129 +1,131 @@
-<header>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-        {{#link-to "index"}}<a class="navbar-brand" href="#"><b style="color:orange;text-align:center">ImgRepo</b></a>{{/link-to}}
-        {{#if session.isAuthenticated}}
-          {{#link-to "user" session.currentUser.email}}<a class="navbar-brand" href="#">View Profile</a>{{/link-to}}
-          {{#link-to "user.edit"session.currentUser.email}}<a class="navbar-brand" href="#">Edit Profile</a>{{/link-to}}
-        {{/if}}
-
-      <a class="navbar-brand" href="assets/Frequently_Asked_Questions.pdf" target="_blank">FAQ</a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <div class="navbar-form navbar-right">
+<div class="ember-view">
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+          {{#link-to "index"}}<a class="navbar-brand" href="#"><b style="color:orange;text-align:center">ImgRepo</b></a>{{/link-to}}
           {{#if session.isAuthenticated}}
-            <button id="newPostButton" type="button" class="btn" {{action "showNewPostModal" "New Post"}}>New Post</button>
-            <button id="signOutButon" type="button" class="btn" {{action "logoutUser"}}>Logout {{session.currentUser.email}}</button>
-          {{else}}
-            <button id="loginButton" type="button" class="btn" {{action "showLoginModal" "Login"}}>Login</button>
-            <button id="registerButton" type="button" class="btn" {{action "showRegisterModal" "Registration"}}>Register</button>
+            {{#link-to "user" session.currentUser.email}}<a class="navbar-brand" href="#">View Profile</a>{{/link-to}}
+            {{#link-to "user.edit"session.currentUser.email}}<a class="navbar-brand" href="#">Edit Profile</a>{{/link-to}}
           {{/if}}
+
+        <a class="navbar-brand" href="assets/Frequently_Asked_Questions.pdf" target="_blank">FAQ</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="navbar-form navbar-right">
+            {{#if session.isAuthenticated}}
+              <button id="newPostButton" type="button" class="btn" {{action "showNewPostModal" "New Post"}}>New Post</button>
+              <button id="signOutButon" type="button" class="btn" {{action "logoutUser"}}>Logout {{session.currentUser.email}}</button>
+            {{else}}
+              <button id="loginButton" type="button" class="btn" {{action "showLoginModal" "Login"}}>Login</button>
+              <button id="registerButton" type="button" class="btn" {{action "showRegisterModal" "Registration"}}>Register</button>
+            {{/if}}
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
-</header>
-<div class="container">
-  {{#if isShowingLoginModal}}
-    {{#modal-dialog translucentOverlay=true close='closeLoginModal' }}
-      <center><h1 style="color:black;font-family:Cambria;">{{modalMessage}}</h1></center>
-      <form {{action "loginUser" on="submit"}}>
-        <div class="form-group">
-          {{input value=formEmail
-            type="text" class="form-control" name="email" required=true placeholder="Email"}}
-            <br/>
-          {{input value=formPassword
-            type="password" class="form-control" name="password" required=true placeholder="Password"}}
-            <br/>
-          <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </div>
-      </form>
-    {{/modal-dialog}}
-  {{/if}}
-  {{#if isShowingRegisterModal}}
-    {{#modal-dialog translucentOverlay=true close='closeRegisterModal' }}
-      <center><h1 style="color:black;font-family:Cambria;">{{modalMessage}}</h1></center>
-      <form {{action "createUser" model.user.email on="submit"}}>
-        <div class="form-group">
-          {{input value=model.user.displayName
-            type="text" class="form-control" name="displayName" required=true placeholder="Display Name"}}
-            <br/>
-          {{input value=model.user.email
-            type="text" class="form-control" name="email" required=true placeholder="Email"}}
-            <br/>
-          {{input value=formPassword
-            type="password" class="form-control" name="password" required=true placeholder="Password"}}
-            <br/>
-          {{input value=model.user.firstName
-            type="text" class="form-control" name="firstName" required=true placeholder="First Name"}}
-            <br/>
-          {{input value=model.user.lastName
-            type="text" class="form-control" name="lastName" required=true placeholder="Last Name"}}
-            <br/>
-          {{input value=model.user.bio
-            type="text" class="form-control" name="bio" required=true placeholder="Bio-Tell About Yourself"}}
-            <br/>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Create</button>
-        <button {{action 'cancelCreateUser'}} class="btn btn-link btn-block">Cancel</button>
-      </form>
-    {{/modal-dialog}}
-  {{/if}}
-  {{#if isShowingNewPostModal}}
-    {{#modal-dialog translucentOverlay=true close='closeNewPostModal' }}
-      <div id="postSubmissionForm">
-        <center><h1 style="color:black;font-family:Cambria;">Create Post</h1></center>
-        <form {{action "createPost" session.currentUser.uid on="submit"}}>
-          <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
-          <!-- is there a way to get drop/drop working for uploading images -->
+    </nav>
+  </header>
+  <div class="container">
+    {{#if isShowingLoginModal}}
+      {{#modal-dialog translucentOverlay=true close='closeLoginModal' }}
+        <center><h1 style="color:black;font-family:Cambria;">{{modalMessage}}</h1></center>
+        <form {{action "loginUser" on="submit"}}>
           <div class="form-group">
-            {{#unless downloadURL}}
-              {{x-file-input name="files"
-                multiple=false
-                action="didSelectFiles"
-                alt="Choose a File"
-                accept="image/png,image/jpg,image/gif"
-                class="btn btn-primary btn-success-outline btn-block" }}
-            {{/unless}}
-            {{#if progress}}
-              <div class="form-group text-center">
-                <progress class="progress progress-success" value= {{progress}} max="100"></progress>
-              </div>
-            {{/if}}
-            {{#if status}}
-              <div class="form-group text-center">
-                <p class="text-primary">{{progressText}}</p>
-              </div>
-            {{/if}}
-            {{#if downloadURL}}
-              <div class="form-group">
-                {{input value=model.post.title type="text" class="form-control"
-                  name="title" required=true placeholder="Post Title" autofocus="true"}}
-              </div>
-              <div class="form-group">
-                <img class="max-height-350px" src="{{downloadURL}}" alt="" class="img-responsive img-rounded" />
-                <span class="imagePostingTitle airstreamregular">{{model.post.title}}</span>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Post!</button>
-              </div>
-            {{/if}}
-            <div class="form-group">
-              <button {{action 'cancelCreatePost'}} class="btn btn-link btn-block">Cancel</button>
-            </div>
+            {{input value=formEmail
+              type="text" class="form-control" name="email" required=true placeholder="Email"}}
+              <br/>
+            {{input value=formPassword
+              type="password" class="form-control" name="password" required=true placeholder="Password"}}
+              <br/>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
           </div>
         </form>
-      </div>
-    {{/modal-dialog}}
-  {{/if}}
-</div>
-<div class="container">
-  {{outlet}}
+      {{/modal-dialog}}
+    {{/if}}
+    {{#if isShowingRegisterModal}}
+      {{#modal-dialog translucentOverlay=true close='closeRegisterModal' }}
+        <center><h1 style="color:black;font-family:Cambria;">{{modalMessage}}</h1></center>
+        <form {{action "createUser" model.user.email on="submit"}}>
+          <div class="form-group">
+            {{input value=model.user.displayName
+              type="text" class="form-control" name="displayName" required=true placeholder="Display Name"}}
+              <br/>
+            {{input value=model.user.email
+              type="text" class="form-control" name="email" required=true placeholder="Email"}}
+              <br/>
+            {{input value=formPassword
+              type="password" class="form-control" name="password" required=true placeholder="Password"}}
+              <br/>
+            {{input value=model.user.firstName
+              type="text" class="form-control" name="firstName" required=true placeholder="First Name"}}
+              <br/>
+            {{input value=model.user.lastName
+              type="text" class="form-control" name="lastName" required=true placeholder="Last Name"}}
+              <br/>
+            {{input value=model.user.bio
+              type="text" class="form-control" name="bio" required=true placeholder="Bio-Tell About Yourself"}}
+              <br/>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Create</button>
+          <button {{action 'cancelCreateUser'}} class="btn btn-link btn-block">Cancel</button>
+        </form>
+      {{/modal-dialog}}
+    {{/if}}
+    {{#if isShowingNewPostModal}}
+      {{#modal-dialog translucentOverlay=true close='closeNewPostModal' }}
+        <div id="postSubmissionForm">
+          <center><h1 style="color:black;font-family:Cambria;">Create Post</h1></center>
+          <form {{action "createPost" session.currentUser.uid on="submit"}}>
+            <!-- Does our emberx-file-input plugin allow for upload through a URL  -->
+            <!-- is there a way to get drop/drop working for uploading images -->
+            <div class="form-group">
+              {{#unless downloadURL}}
+                {{x-file-input name="files"
+                  multiple=false
+                  action="didSelectFiles"
+                  alt="Choose a File"
+                  accept="image/png,image/jpg,image/gif"
+                  class="btn btn-primary btn-success-outline btn-block" }}
+              {{/unless}}
+              {{#if progress}}
+                <div class="form-group text-center">
+                  <progress class="progress progress-success" value= {{progress}} max="100"></progress>
+                </div>
+              {{/if}}
+              {{#if status}}
+                <div class="form-group text-center">
+                  <p class="text-primary">{{progressText}}</p>
+                </div>
+              {{/if}}
+              {{#if downloadURL}}
+                <div class="form-group">
+                  {{input value=model.post.title type="text" class="form-control"
+                    name="title" required=true placeholder="Post Title" autofocus="true"}}
+                </div>
+                <div class="form-group">
+                  <img class="max-height-350px" src="{{downloadURL}}" alt="" class="img-responsive img-rounded" />
+                  <span class="imagePostingTitle airstreamregular">{{model.post.title}}</span>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block">Post!</button>
+                </div>
+              {{/if}}
+              <div class="form-group">
+                <button {{action 'cancelCreatePost'}} class="btn btn-link btn-block">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      {{/modal-dialog}}
+    {{/if}}
+  </div>
+  <div class="container">
+    {{outlet}}
+  </div>
 </div>

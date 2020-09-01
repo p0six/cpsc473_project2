@@ -2,7 +2,8 @@ import Controller from '@ember/controller';
 import Ember from 'ember';
 
 import firebase from 'firebase';
-import sweetAlert from 'ember-sweetalert';
+//import sweetAlert from 'ember-sweetalert';
+import sweetAlert from 'sweetalert2';
 
 window.firebase = firebase;
 

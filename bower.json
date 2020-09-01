@@ -3,10 +3,10 @@
   "description": "Small description for imgrepo goes here",
   "main": "",
   "authors": [
-    "Michael Romero <romerom@gmail.com>"
+    "p0six <romerom@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/p0six/cpsc473_project2",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -15,9 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "^3.3.7",
-    "moment": "^2.19.2",
-    "ember": "^2.16.2",
-    "sweetalert2": "^6.1.0"
+    "bootstrap-sass": "^3.4.1",
+    "moment": "^2.27.0"
   }
 }

@@ -1,16 +1,33 @@
 ### To view a live copy of the application... click [here](https://img.awwsheezy.com/)
 
+## TODO
+Correct the issue with ember-sweetalert
+
+Updated docs here: https://www.emberobserver.com/addons/ember-sweetalert
+```
+Uncaught TypeError: Cannot call a class as a function
+```
+
 ## TO RUN THE application
 
 1. Pull the application from github
 2. cd to the folder ex. cd imgrepo
 3. type: npm install
-4. type: npm install -g bower@latest
+4. type: sudo npm install -g bower@latest
+5. Install 'watchman': sudo npm install -g watchman
 5. type: bower install
 6. type: ember serve
 7. enjoy the app at: http://localhost:4200
 
-
+### Installation notes:
+If you get an error similar to the following when building on MacOS:
+    ```
+    xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory'/Library/Developer/CommandLineTools' is a command line tools instance
+    ```
+Execute the following command, which should correct the issue:
+    ```
+    sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+    ```
 # imgrepo - An image repository built on EmberJS.
 
 * `ember new imgrepo && cd imgrepo`
