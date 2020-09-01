@@ -6,3 +6,4 @@ export default FirestoreAdapter.extend({
     // enablePersistence: true,
     // persistenceSettings: { synchronizeTabs: true }
 });
+
